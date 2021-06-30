@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: Tahoma,sans-serif,Arial,Helvetica;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #e7ebf0;
+  font-size: 13px;
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
