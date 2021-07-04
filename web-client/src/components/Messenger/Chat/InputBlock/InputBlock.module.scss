@@ -1,0 +1,23 @@
+@import "../../../../styles/rem";
+
+.content {
+  height: rem(74px);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.inputCont {
+  background-color: var(--surface-color);
+  border-radius: rem(12px);
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+}
+
+.sendIcon {
+  background: white;
+}

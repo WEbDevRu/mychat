@@ -1,0 +1,12 @@
+@import "../../styles/rem";
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: auto;
+  max-width: rem(1680px);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  height: 100vh;
+}

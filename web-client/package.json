@@ -3,34 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-cookie": "^4.0.3",
-    "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
+    "@material-ui/core": "4.11.4",
+    "@testing-library/jest-dom": "5.12.0",
+    "@testing-library/react": "11.2.6",
+    "@testing-library/user-event": "12.8.3",
+    "prop-types": "15.7.2",
+    "react": "17.0.2",
+    "react-cookie": "4.0.3",
+    "react-custom-scrollbars": "4.2.1",
+    "react-dom": "17.0.2",
+    "react-redux": "7.2.4",
+    "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "redux": "^4.1.0",
-    "redux-promise-middleware": "^6.1.2",
-    "redux-thunk": "^2.3.0",
-    "socket.io-client": "^4.0.1",
-    "styled-components": "^5.2.3",
-    "web-vitals": "^1.1.1"
+    "react-scrollbars-custom": "4.0.25",
+    "redux": "4.1.0",
+    "redux-promise-middleware": "6.1.2",
+    "redux-thunk": "2.3.0",
+    "sass": "1.35.1",
+    "socket.io-client": "4.0.1",
+    "styled-components": "5.2.3",
+    "web-vitals": "1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint './src/**' --format node_modules/eslint-friendly-formatter . --ext .js --ext .jsx --cache",
+    "lint:fix": "eslint \"./src/**\" --format node_modules/eslint-friendly-formatter . --ext .js --ext .jsx --cache --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "7.20.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.22.0"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,16 @@
+/blueprints
+/vendor/
+/styles/
+/static/
+/bower_components/
+/src/assets
+/src/style
+/bin
+/dist
+*.scss
+*.css
+/.next
+next.config.js
+postcss.config.js
+server.js
+/public/library

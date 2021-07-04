@@ -1,0 +1,22 @@
+@import "../../../../styles/rem";
+
+.content {
+  width: 100%;
+  height: rem(56px);
+  background: var(--surface-color);
+  box-shadow: rem(0 1px 5px -1px) rgb(0 0 0 / 21%);
+  padding: rem(0 16px);
+}
+
+.contentRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.avatarCont {
+  width: rem(70px);
+  height: rem(56px);
+  display: flex;
+  align-items: center;
+}
