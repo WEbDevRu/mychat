@@ -10,14 +10,36 @@
 
 .inputCont {
   background-color: var(--surface-color);
-  border-radius: rem(12px);
+  border-radius: rem(12px 12px 0 12px);
   width: 100%;
+  overflow: hidden;
+  height: rem(60px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.inputWr {
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: var(--body-background-color) !important;
 }
 
 .input {
-  width: 100%;
+  padding: rem(0px 10px 0px 25px) !important;
+  font-size: rem(18px);
 }
 
 .sendIcon {
-  background: white;
+  background-color: var(--body-background-color) !important;
+  height: rem(60px);
+  width: rem(60px);
+  margin-left: rem(10px) !important;
+}
+
+.messageTail {
+  position: absolute;
+  right: 0px;
 }

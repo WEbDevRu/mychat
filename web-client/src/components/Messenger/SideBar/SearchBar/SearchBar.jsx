@@ -5,7 +5,7 @@ import styles from './SearchBar.module.scss';
 const SearchBar = (props) => {
     const {} = props;
     return (
-        <div>
+        <div className={styles.content}>
             SearchBar
         </div>
     );

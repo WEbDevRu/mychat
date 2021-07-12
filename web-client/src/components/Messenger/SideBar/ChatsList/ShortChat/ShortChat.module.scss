@@ -1,0 +1,66 @@
+@import "../../../../../styles/rem";
+
+.content {
+  height: rem(72px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.avatarCont {
+  width: rem(60px);
+}
+
+.avatar {
+  width: rem(54px) !important;
+  height: rem(54px) !important;
+}
+
+.infoCont {
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  color: var(--secondary-text-color);
+  flex: 1 1 auto;
+  padding: rem(1px 7px 1px 9px);
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: rem(2px 17px 0 0);
+}
+
+.subTitle {
+  display: flex;
+  justify-content: space-between;
+  padding-right: rem(17px);
+  padding-top: rem(2px);
+}
+
+.name {
+  color: var(--primary-text-color);
+  font-weight: 500;
+  font-size: rem(16px);
+}
+
+.time {
+  font-size: rem(12px);
+  line-height: 2;
+}
+
+.messageText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: rem(17px);
+}
+
+.unreadCount {
+  background: var(--message-secondary-color);
+  padding: rem(7px 10px 7px 10px);
+  border-radius: rem(20px);
+  line-height: 100%;
+  font-weight: 700;
+  color: white;
+}
