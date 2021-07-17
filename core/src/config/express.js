@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 
 const routes = require('../api');
 
 const app = express();
-
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -14,6 +15,6 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use('/', routes);
+app.use('/api', routes);
 
 exports.app = app;

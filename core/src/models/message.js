@@ -8,4 +8,4 @@ const schema = new mongoose.Schema(
         }
     }
 );
-exports.Chat = mongoose.model('Message', schema);
+exports.Message = mongoose.model('Message', schema);

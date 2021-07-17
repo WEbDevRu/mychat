@@ -1,0 +1,20 @@
+@import "../../../styles/rem";
+
+.content {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loopIcon {
+  width: rem(50px) !important;
+  height: rem(50px) !important;
+  animation: rotation infinite 1s linear;
+}
+
+@keyframes rotation {
+  from { transform: rotate(0deg)}
+  to { transform: rotate(360deg)}
+}

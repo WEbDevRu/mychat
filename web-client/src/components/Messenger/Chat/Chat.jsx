@@ -4,8 +4,12 @@ import styles from './Chat.module.scss';
 import { ChatMessages } from './ChatMessages';
 import { InputBlock } from './InputBlock';
 import { Navbar } from './Navbar';
+import { useChat } from '../../../context/ChatContext';
 
 const Chat = (props) => {
+    const {
+        test,
+    } = useChat();
     const {} = props;
     return (
         <div className={styles.content}>

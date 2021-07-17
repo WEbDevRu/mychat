@@ -1,0 +1,53 @@
+import React, {
+    createContext,
+    useContext, useEffect,
+    useState,
+} from 'react';
+import PropTypes from 'prop-types';
+import httpStatus from 'http-status';
+import { authAPI } from '../utils/api/api';
+import { useAuth } from './AuthContext';
+
+const AppContext = createContext({});
+export const useApp = () => useContext(AppContext);
+
+export const AppProvider = (props) => {
+    const { children } = props;
+    const [isInitialized, setIsInitialized] = useState(false);
+    const {
+        setIsAuthorized,
+    } = useAuth();
+
+    useEffect(() => {
+        const getMe = async () => {
+            const result = await authAPI.getMe();
+            setIsInitialized(true);
+            if (result.status === httpStatus.UNAUTHORIZED) {
+                setIsAuthorized(false);
+            }
+            if (result.status === httpStatus.OK) {
+                setIsAuthorized(true);
+            }
+        };
+        getMe();
+    }, []);
+
+    return (
+        <AppContext.Provider
+            value={{
+                isInitialized,
+                setIsInitialized,
+            }}
+        >
+            {children}
+        </AppContext.Provider>
+    );
+};
+
+AppProvider.propTypes = {
+    children: PropTypes.any,
+};
+
+AppProvider.defaultProps = {
+    children: null,
+};
