@@ -1,16 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    TextField,
+    Button,
+    Card,
+    Typography,
+} from '@material-ui/core';
+
 import styles from './Registration.module.scss';
 
-const Registration = (props) => {
-    return (
-        <div className={styles.content}>
-            <p>
+const Registration = (props) => (
+    <div className={styles.pageCont}>
+        <Card className={styles.content}>
+            <Typography
+                gutterBottom
+                variant="h5"
+                component="h1"
+                className={styles.heading}
+            >
                 Registration
-            </p>
-        </div>
-    );
-};
+            </Typography>
+            <TextField
+                label="Enter your name"
+                variant="outlined"
+                className={styles.input}
+            />
+            <Button
+                className={styles.button}
+                variant="contained"
+                color="primary"
+            >
+                Submit
+            </Button>
+        </Card>
+    </div>
+);
 
 Registration.propTypes = {
 

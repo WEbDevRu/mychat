@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import httpStatus from 'http-status';
+import { useHistory } from 'react-router-dom';
 import { authAPI } from '../utils/api/api';
 import { useAuth } from './AuthContext';
 
@@ -17,13 +18,15 @@ export const AppProvider = (props) => {
     const {
         setIsAuthorized,
     } = useAuth();
+    const history = useHistory();
 
     useEffect(() => {
         const getMe = async () => {
             const result = await authAPI.getMe();
             setIsInitialized(true);
             if (result.status === httpStatus.UNAUTHORIZED) {
-                setIsAuthorized(false);
+                setIsAuthorized(true);
+                //history.push('/reg');
             }
             if (result.status === httpStatus.OK) {
                 setIsAuthorized(true);
