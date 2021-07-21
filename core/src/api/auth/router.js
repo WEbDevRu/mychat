@@ -18,6 +18,6 @@ router.post(
     schemeValidator.postMe,
     dataValidator.postMe,
     controller.postMe,
-)
+);
 
 module.exports = router;

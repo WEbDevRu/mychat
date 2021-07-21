@@ -6,8 +6,13 @@ const axiosInstance = axios.create({
 
 export const authAPI = {
     getMe() {
-        return axiosInstance.get('/auth')
-            .then((res) => (res.response))
-            .catch((err) => (err.response));
+        return axiosInstance.get('/auth', { withCredentials: true })
+            .then((res) => (res))
+            .catch((err) => (err));
+    },
+    postMe(data) {
+        return axiosInstance.post('/auth', data)
+            .then((res) => (res))
+            .catch((err) => (err));
     },
 };

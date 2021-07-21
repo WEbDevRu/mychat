@@ -26,9 +26,10 @@ export const AppProvider = (props) => {
             setIsInitialized(true);
             if (result.status === httpStatus.UNAUTHORIZED) {
                 setIsAuthorized(true);
-                //history.push('/reg');
+                history.push('/reg');
             }
             if (result.status === httpStatus.OK) {
+                history.push('/');
                 setIsAuthorized(true);
             }
         };

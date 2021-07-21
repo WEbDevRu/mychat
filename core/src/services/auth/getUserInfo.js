@@ -1,5 +1,5 @@
 async function getUserInfo({ user } = {}) {
-    const dto = user.toDto();
+    const dto = user;
     return { user: dto };
 }
 

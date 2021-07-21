@@ -15,5 +15,11 @@ exports.postMe = wrapAsyncMiddleware(async(req, res) => {
     const result = await createUser({
         username: req.body.username,
     })
+
+    const expiresDate = Date.now() + 365*24*60*60*1000;
+    res.cookie('AUTHENTICATION', result.accessToken, {
+        expires: new Date(expiresDate)
+    });
+
     return res.status(httpStatus.OK).json(result);
 })

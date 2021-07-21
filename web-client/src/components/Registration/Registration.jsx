@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
     TextField,
@@ -7,34 +7,72 @@ import {
     Typography,
 } from '@material-ui/core';
 
+import { useForm } from 'react-hook-form';
 import styles from './Registration.module.scss';
+import { useAuth } from '../../context/AuthContext';
 
-const Registration = (props) => (
-    <div className={styles.pageCont}>
-        <Card className={styles.content}>
-            <Typography
-                gutterBottom
-                variant="h5"
-                component="h1"
-                className={styles.heading}
-            >
-                Registration
-            </Typography>
-            <TextField
-                label="Enter your name"
-                variant="outlined"
-                className={styles.input}
-            />
-            <Button
-                className={styles.button}
-                variant="contained"
-                color="primary"
-            >
-                Submit
-            </Button>
-        </Card>
-    </div>
-);
+const Registration = (props) => {
+    const {
+        setValue,
+        register,
+        handleSubmit: onSend,
+    } = useForm({
+        resolver: undefined,
+    });
+
+    const {
+        onPostMe,
+    } = useAuth();
+
+    useEffect(() => {
+        register('usernameText');
+    }, []);
+
+    const handleSubmit = onSend(async (data) => {
+        onPostMe({ username: data.usernameText });
+    });
+
+    const handleChange = ({ name, value }) => {
+        setValue(name, value);
+    };
+
+    return (
+        <div className={styles.pageCont}>
+            <Card className={styles.content}>
+                <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h1"
+                    className={styles.heading}
+                >
+                    Registration
+                </Typography>
+
+                <form
+                    onSubmit={handleSubmit}
+                >
+                    <TextField
+                        label="Enter your name"
+                        variant="outlined"
+                        className={styles.input}
+                        onChange={(e) => handleChange({ value: e.target.value, name: e.target.name })}
+                        name="usernameText"
+                        required
+                    />
+                    <Button
+                        className={styles.button}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
+                </form>
+
+            </Card>
+        </div>
+    );
+};
 
 Registration.propTypes = {
 

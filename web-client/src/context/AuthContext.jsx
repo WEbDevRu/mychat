@@ -5,19 +5,31 @@ import React, {
     useState,
 } from 'react';
 import PropTypes from 'prop-types';
-
+import { authAPI } from '../utils/api/api';
+import httpStatus from 'http-status';
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = (props) => {
     const { children } = props;
     const [isAuthorized, setIsAuthorized] = useState(false);
+    const [regError, setRegError] = useState();
+
+    const onPostMe = async ({ username }) => {
+        const result = await authAPI.postMe({ username });
+        if (result.status === httpStatus.OK) {
+            document.cookie = `AUTHORIZATION=${result.data.accessToken}; max-age=360000; secure; path=/`;
+        } else {
+            setRegError('usermane exists');
+        }
+    };
 
     return (
         <AuthContext.Provider
             value={{
                 isAuthorized,
                 setIsAuthorized,
+                onPostMe,
             }}
         >
             {children}

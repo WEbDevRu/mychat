@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
 const { withTransaction } = require('../../utils/withTransaction');
+require('dotenv').config();
+
 async function createUser({ username }, { session } = {}) {
     const user = new User({
         username: username,
