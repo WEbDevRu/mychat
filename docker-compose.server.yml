@@ -24,11 +24,9 @@ services:
       - mychat-rabbit:/var/lib/rabbitmq
 
   core:
-    image: core/:latest
     ports:
       - 26502:3001
   web-client:
-    image: client/:latest
     ports:
       - 26501:3000
 
