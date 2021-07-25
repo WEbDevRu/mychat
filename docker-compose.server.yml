@@ -24,9 +24,15 @@ services:
       - mychat-rabbit:/var/lib/rabbitmq
 
   core:
+    build:
+      context: ./core
+      dockerfile: Dockerfile
     ports:
       - 26502:3001
   web-client:
+    build:
+      context: ./web-client
+      dockerfile: Dockerfile
     ports:
       - 26501:3000
 
