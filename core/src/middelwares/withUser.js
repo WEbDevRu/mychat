@@ -15,7 +15,6 @@ async function getByType ({req, type}) {
     if ( type === AUTHORIZATION_TYPES.COOKIE_TOKEN) {
         const accessToken = req.cookies.AUTHORIZATION;
         if (accessToken){
-            console.log(accessToken);
             const decoded = jwt.verify(accessToken, process.env.TOKEN_SECRET);
             if(decoded){
                 return User.findOne({

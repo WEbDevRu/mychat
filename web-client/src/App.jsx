@@ -6,6 +6,7 @@ import { useApp } from './context/AppContext';
 import { LoadingPage } from './components/Common/LoadingPage';
 import { Registration } from './components/Registration';
 import { VideoConf } from './components/VideoConf';
+import { MessengerProvider } from './context/MessengerContext';
 
 const App = () => {
     const {
@@ -16,7 +17,7 @@ const App = () => {
             {!isInitialized && <LoadingPage />}
             {isInitialized && (
                 <>
-                    <Route exact path="/" render={() => <Messenger />} />
+                    <Route path="/chat/:chatId?" render={() => <MessengerProvider><Messenger /></MessengerProvider>} />
                     <Route path="/reg" render={() => <Registration />} />
                     <Route path="/conf" render={() => <VideoConf />} />
                 </>

@@ -15,6 +15,7 @@ const Registration = (props) => {
     const {
         setValue,
         register,
+        setError,
         handleSubmit: onSend,
     } = useForm({
         resolver: undefined,
@@ -22,6 +23,8 @@ const Registration = (props) => {
 
     const {
         onPostMe,
+        regError,
+        setRegError,
     } = useAuth();
 
     useEffect(() => {
@@ -34,6 +37,7 @@ const Registration = (props) => {
 
     const handleChange = ({ name, value }) => {
         setValue(name, value);
+        setRegError('');
     };
 
     return (
@@ -51,6 +55,14 @@ const Registration = (props) => {
                 <form
                     onSubmit={handleSubmit}
                 >
+                    <Typography
+                        gutterBottom
+                        variant="p"
+                        component="p"
+                        className={styles.heading}
+                    >
+                        {regError}
+                    </Typography>
                     <TextField
                         label="Enter your name"
                         variant="outlined"

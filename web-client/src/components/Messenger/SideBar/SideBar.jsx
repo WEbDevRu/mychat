@@ -5,21 +5,25 @@ import { SearchBar } from './SearchBar';
 import { ChatsList } from './ChatsList';
 
 const SideBar = (props) => {
-    const {} = props;
+    const { chats } = props;
+
     return (
         <div className={styles.content}>
             <SearchBar />
-            <ChatsList />
+            <ChatsList
+                chats={chats}
+            />
         </div>
     );
 };
 
 SideBar.propTypes = {
+    chats: PropTypes.object,
 
 };
 
 SideBar.defaultProps = {
-
+    chats: {},
 };
 
 export default React.memo(SideBar);

@@ -24,13 +24,12 @@ export const AppProvider = (props) => {
         const getMe = async () => {
             const result = await authAPI.getMe();
             setIsInitialized(true);
-            if (result.status === httpStatus.UNAUTHORIZED) {
-                setIsAuthorized(true);
-                history.push('/reg');
-            }
             if (result.status === httpStatus.OK) {
-                history.push('/');
+                history.push('/chat');
                 setIsAuthorized(true);
+            } else {
+                history.push('/reg');
+                setIsAuthorized(false);
             }
         };
         getMe();

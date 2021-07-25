@@ -4,7 +4,9 @@ import styles from './Navbar.module.scss';
 import { Avatar } from '@material-ui/core';
 
 const Navbar = (props) => {
-    const {} = props;
+    const {
+        currentChatInfo,
+    } = props;
     return (
         <div className={styles.content}>
             <div className={styles.contentRow}>
@@ -13,10 +15,10 @@ const Navbar = (props) => {
                 </div>
                 <div className={styles.chatInfoCont}>
                     <p className={styles.chatName}>
-                        Chat
+                        {currentChatInfo.name}
                     </p>
                     <p className={styles.chatSubInfo}>
-                        last seen
+                        {`members${ currentChatInfo.participants?.length}`}
                     </p>
                 </div>
             </div>
@@ -25,11 +27,11 @@ const Navbar = (props) => {
 };
 
 Navbar.propTypes = {
-
+    currentChatInfo: PropTypes.object,
 };
 
 Navbar.defaultProps = {
-
+    currentChatInfo: {},
 };
 
 export default React.memo(Navbar);

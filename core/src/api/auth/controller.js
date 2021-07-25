@@ -1,8 +1,7 @@
 const httpStatus = require('http-status');
-const { getMessagesWT } = require('../../services/chat/getMessages');
 const { wrapAsyncMiddleware } = require('../../middelwares/wrapAsyncMiddleware');
 const { getUserInfo } = require('../../services/auth/getUserInfo');
-const { createUser } =  require('../../services/auth/createUser');
+const { createUserWT } =  require('../../services/auth/createUser');
 
 exports.getMe = wrapAsyncMiddleware( async(req, res) => {
     const result = await getUserInfo({
@@ -12,7 +11,7 @@ exports.getMe = wrapAsyncMiddleware( async(req, res) => {
 })
 
 exports.postMe = wrapAsyncMiddleware(async(req, res) => {
-    const result = await createUser({
+    const result = await createUserWT({
         username: req.body.username,
     })
 

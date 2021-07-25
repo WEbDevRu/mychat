@@ -1,27 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import styles from './Messenger.module.scss';
 import { Chat } from './Chat';
 import { SideBar } from './SideBar';
-import { ChatProvider } from '../../context/ChatContext';
+import { useMessenger } from '../../context/MessengerContext';
 
-const Messenger = (props) => {
+const Messenger = () => {
+    const {
+        onGetChats,
+        chats,
+        onGetChatInfo,
+        currentChatInfo,
+        onGetChatHistory,
+        currentChatHistory,
+    } = useMessenger();
+
+    useEffect(() => {
+        onGetChats();
+    }, []);
     return (
         <div className={styles.content}>
-            <ChatProvider>
-                <SideBar />
-                <Chat />
-            </ChatProvider>
+            <SideBar
+                chats={chats}
+            />
+            <Chat
+                onGetChatInfo={onGetChatInfo}
+                currentChatInfo={currentChatInfo}
+                onGetChatHistory={onGetChatHistory}
+                currentChatHistory={currentChatHistory}
+            />
         </div>
     );
-};
-
-Messenger.propTypes = {
-
-};
-
-Messenger.defaultProps = {
-
 };
 
 export default React.memo(Messenger);

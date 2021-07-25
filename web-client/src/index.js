@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
-import history from './utils/router/history';
 
 ReactDOM.render(
     // eslint-disable-next-line react/jsx-filename-extension

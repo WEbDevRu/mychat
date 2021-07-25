@@ -21,7 +21,6 @@ schema.methods.toDto = function toDto() {
     return {
         id: this._id,
         username: this.username,
-        token: this.token,
     };
 };
 exports.User = mongoose.model('User', schema);

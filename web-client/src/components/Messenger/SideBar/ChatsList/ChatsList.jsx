@@ -5,7 +5,8 @@ import styles from './ChatsList.module.scss';
 import { ShortChat } from './ShortChat';
 
 const ChatsList = (props) => {
-    const {} = props;
+    const { chats } = props;
+    console.log(chats);
     return (
         <div className={styles.content}>
             <Scrollbars
@@ -13,23 +14,15 @@ const ChatsList = (props) => {
                 renderTrackHorizontal={() => <div />}
             >
                 <ul className={styles.list}>
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
-                    <ShortChat />
+                    {
+                        chats.items?.map((i) => (
+                            <ShortChat
+                                id={i.id}
+                                name={i.name}
+                                lastMessage={i.lastMessage}
+                            />
+                        ))
+                    }
                 </ul>
 
             </Scrollbars>
@@ -38,11 +31,11 @@ const ChatsList = (props) => {
 };
 
 ChatsList.propTypes = {
-
+    chats: PropTypes.object,
 };
 
 ChatsList.defaultProps = {
-
+    chats: {},
 };
 
 export default React.memo(ChatsList);
