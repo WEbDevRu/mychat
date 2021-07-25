@@ -23,10 +23,12 @@ services:
     volumes:
       - mychat-rabbit:/var/lib/rabbitmq
 
-  mychat_backend:
+  core:
+    image: core/:latest
     ports:
       - 26502:3001
-  mychat_frontend:
+  web-client:
+    image: client/:latest
     ports:
       - 26501:3000
 
