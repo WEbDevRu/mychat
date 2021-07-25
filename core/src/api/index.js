@@ -8,6 +8,7 @@ const startedAt = new Date();
 router.use('/messenger', chatRouter);
 router.use('/auth', authRouter);
 
+
 router.get('/', (req, res) => {
     res.status(httpStatus.OK).json({
         startedAt,
