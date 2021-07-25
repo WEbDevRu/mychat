@@ -1,0 +1,36 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:4.4.3
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    volumes:
+      - mychat-mongo:/data/db
+    expose:
+      - 27017
+    ports:
+      - 57011:27017
+
+  rabbit:
+    image: rabbitmq:3.8.11-management-alpine
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+    ports:
+      - 57012:5672
+      - 57013:15672
+    volumes:
+      - mychat-rabbit:/var/lib/rabbitmq
+
+  mychat_backend:
+    ports:
+      - 26502:3001
+  mychat_frontend:
+    ports:
+      - 26501:3000
+
+
+volumes:
+  mychat-mongo:
+  mychat-rabbit:
