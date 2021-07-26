@@ -40,3 +40,8 @@ services:
 volumes:
   mychat-mongo:
   mychat-rabbit:
+
+networks:
+  default:
+    external:
+      name: bridge-mychat
