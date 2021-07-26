@@ -4,6 +4,7 @@ import styles from './VideoConf.module.scss';
 import { ControlBar } from './ControlBar';
 import { StreamsCont } from './StreamsCont';
 
+
 const VideoConf = (props) => (
     <div className={styles.content}>
         <StreamsCont />
