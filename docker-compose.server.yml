@@ -16,10 +16,10 @@ services:
       context: ./core
       dockerfile: Dockerfile
     environment:
-      - COOKIE_SECRET=${COOKIE_SECRET}
-      - TOKEN_SECRET=${TOKEN_SECRET}
-      - CORS_ORIGIN=${CORS_ORIGIN}
-      - MONGO_URL=mongodb://mongo:57011/mychat?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+      - COOKIE_SECRET=${env.COOKIE_SECRET}
+      - TOKEN_SECRET=${env.TOKEN_SECRET}
+      - CORS_ORIGIN=${envCORS_ORIGIN}
+      - MONGO_URL=${env.MONGO_URL}
     ports:
       - 26502:3001
 
