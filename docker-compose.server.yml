@@ -28,7 +28,7 @@ services:
       context: ./web-client
       dockerfile: Dockerfile.prod
     ports:
-      - 26501:80
+      - 26501:3000
 
 
 volumes:

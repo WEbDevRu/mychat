@@ -4,8 +4,10 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
+RUN npm i -g pm2 --quiet
 RUN npm install
-RUN npm run start:prod
 
 EXPOSE 3000
+
+ENTRYPOINT ["npm", "start:prod"]
 
