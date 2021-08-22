@@ -20,4 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker-compose --compatibility -f run -e MONGO_URL docker-compose.server.yml up -d --force-recreate --build
+      run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build run -e MONGO_URL
