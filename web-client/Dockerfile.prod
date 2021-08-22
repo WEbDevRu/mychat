@@ -1,0 +1,19 @@
+FROM nginx:1.15-alpine
+
+RUN apk add npm git
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/v3.8/main nodejs
+RUN rm -rf /var/cache/apk/*
+
+RUN mkdir /app
+WORKDIR /app
+COPY . /app
+
+RUN npm install
+
+RUN npm run build:prod
+RUN rm -rf ./node_modules
+
+RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

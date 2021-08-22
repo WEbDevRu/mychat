@@ -10,19 +10,3 @@ services:
       - 27017
     ports:
       - 57011:27017
-
-  rabbit:
-    image: rabbitmq:3.8.11-management-alpine
-    restart: always
-    environment:
-      - RABBITMQ_DEFAULT_USER=rabbitmq
-      - RABBITMQ_DEFAULT_PASS=rabbitmq
-    ports:
-      - 57012:5672
-      - 57013:15672
-    volumes:
-      - mychat-rabbit:/var/lib/rabbitmq
-
-volumes:
-  mychat-mongo:
-  mychat-rabbit:

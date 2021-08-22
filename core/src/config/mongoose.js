@@ -6,7 +6,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.Promise = Promise;
 
 async function connectMongoose() {
-    await mongoose.connect('mongodb://localhost:57011/mychat?readPreference=primary&appname=MongoDB%20Compass&ssl=false', {
+    await mongoose.connect(process.env.MONGO_URL, {
         keepAlive: 1,
         useNewUrlParser: true,
         useUnifiedTopology: true,
