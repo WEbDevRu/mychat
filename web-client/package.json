@@ -37,7 +37,7 @@
     "clean": "rimraf dist",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "npm run clean && cross-env BUILD_CONFIG=server npm run build",
+    "start:prod": "npm run clean && cross-env BUILD_CONFIG=server npm run start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint './src/**' --format node_modules/eslint-friendly-formatter . --ext .js --ext .jsx --cache",

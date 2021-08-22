@@ -21,7 +21,7 @@ export const AuthProvider = (props) => {
         const result = await authAPI.postMe({ username });
         if (result.status === httpStatus.OK) {
             document.cookie = `AUTHORIZATION=${result.data.accessToken}; max-age=360000; secure; path=/`;
-            history.push('/');
+            history.push('/chat');
         } else {
             setRegError('Username exists');
         }
