@@ -6,7 +6,7 @@ COPY . /app
 
 RUN npm i -g pm2 --quiet
 RUN npm install
-RUN npm start:prod
+RUN npm run start:prod
 
 EXPOSE 3000
 
