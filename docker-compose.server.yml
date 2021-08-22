@@ -19,7 +19,7 @@ services:
       - COOKIE_SECRET=qwerty
       - TOKEN_SECRET=qwerty
       - CORS_ORIGIN=*
-      - MONGO_URL=mongodb://mongo:27017/mychat?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+      - MONGO_URL=mongodb://mongo:27017/mychat
     ports:
       - 26502:3001
 
