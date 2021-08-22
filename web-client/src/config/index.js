@@ -1,6 +1,5 @@
-const configuration = process.env.BUILD_CONFIG;
+const configuration = process.env.REACT_APP_BUILD_CONFIG;
 
-console.log(configuration, process.env.BUILD_CONFIG);
 // eslint-disable-next-line import/no-dynamic-require
 const config = require(`./config_${configuration}`);
 

@@ -9,7 +9,6 @@
     "@testing-library/react": "11.2.6",
     "@testing-library/user-event": "12.8.3",
     "axios": "^0.21.1",
-    "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
     "dotenv": "^10.0.0",
     "history": "^5.0.0",
@@ -31,13 +30,15 @@
     "sass": "1.35.1",
     "socket.io-client": "4.0.1",
     "styled-components": "5.2.3",
-    "web-vitals": "1.1.1"
+    "web-vitals": "1.1.1",
+    "cross-env": "^7.0.3"
   },
   "scripts": {
     "clean": "rimraf dist",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "start:prod": "npm run clean && cross-env BUILD_CONFIG=server npm run start",
+    "start:local": "cross-env REACT_APP_BUILD_CONFIG=local npm run start",
+    "start:prod": "cross-env REACT_APP_BUILD_CONFIG=server npm run start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint './src/**' --format node_modules/eslint-friendly-formatter . --ext .js --ext .jsx --cache",
