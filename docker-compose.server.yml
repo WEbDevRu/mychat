@@ -1,10 +1,10 @@
 version: '2'
 services:
   mongo:
-    image: mongo
-    restart: always
     ports:
-      - 57011:27017
+      - 57025:27017
+    volumes:
+      - /data/mychat/mongodb:/data/db
 
   core:
     build:
