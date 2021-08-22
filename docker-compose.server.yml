@@ -19,7 +19,7 @@ services:
       - COOKIE_SECRET=${COOKIE_SECRET}
       - TOKEN_SECRET=${TOKEN_SECRET}
       - CORS_ORIGIN=${CORS_ORIGIN}
-      - MONGO_URL=${MONGO_URL}
+      - MONGO_URL=mongodb://mongo:57011/mychat?readPreference=primary&appname=MongoDB%20Compass&ssl=false
     ports:
       - 26502:3001
 
