@@ -16,10 +16,10 @@ services:
       context: ./core
       dockerfile: Dockerfile
     environment:
-      - COOKIE_SECRET=${{secrets.COOKIE_SECRET}}
-      - TOKEN_SECRET=${{secrets.TOKEN_TOKEN}}
-      - CORS_ORIGIN=${{secrets.CORS_ORIGIN}}
-      - MONGO_URL=${{secrets.MONGO_URL}}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - MONGO_URL=${MONGO_URL}
     ports:
       - 26502:3001
 

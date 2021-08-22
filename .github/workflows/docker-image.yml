@@ -12,6 +12,12 @@ jobs:
 
     runs-on: self-hosted
 
+    env:
+      COOKIE_SECRET=${{secrets.COOKIE_SECRET}}
+      TOKEN_SECRET=${{secrets.TOKEN_TOKEN}}
+      CORS_ORIGIN=${{secrets.CORS_ORIGIN}}
+      MONGO_URL=${{secrets.MONGO_URL}}
+
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
