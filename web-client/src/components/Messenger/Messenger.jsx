@@ -4,7 +4,7 @@ import { Chat } from './Chat';
 import { SideBar } from './SideBar';
 import { useMessenger } from '../../context/MessengerContext';
 
-const Messenger = () => {
+const Messenger = (props) => {
     const {
         onGetChats,
         chats,
@@ -13,6 +13,10 @@ const Messenger = () => {
         onGetChatHistory,
         currentChatHistory,
     } = useMessenger();
+
+    const {
+        socketRef
+    } = props
 
     useEffect(() => {
         onGetChats();
@@ -27,6 +31,7 @@ const Messenger = () => {
                 currentChatInfo={currentChatInfo}
                 onGetChatHistory={onGetChatHistory}
                 currentChatHistory={currentChatHistory}
+                socketRef={socketRef}
             />
         </div>
     );

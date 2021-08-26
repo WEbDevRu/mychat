@@ -15,7 +15,7 @@ const ChatMessages = (props) => {
             onGetChatHistory(chatId);
         }
     }, [chatId]);
-    console.log(currentChatHistory);
+
     return (
         <div className={styles.content}>
             messages

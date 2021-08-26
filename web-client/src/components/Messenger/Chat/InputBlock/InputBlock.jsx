@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { FilledInput, IconButton, FormControl } from '@material-ui/core';
 import styles from './InputBlock.module.scss';
 import { SendIcon } from '../../../Common/Icons/SendIcon';
-import { MessageTail } from '../../../Common/Icons/MessageTail';
 
 const InputBlock = (props) => {
-    const {} = props;
+    const {
+        socketRef
+    } = props;
     return (
         <div className={styles.content}>
             <div className={styles.inputCont}>
@@ -21,9 +22,6 @@ const InputBlock = (props) => {
                         className: styles.input,
                     }}
                 />
-                <MessageTail
-                    className={styles.messageTail}
-                />
             </div>
             <IconButton
                 className={styles.sendIcon}
@@ -36,11 +34,11 @@ const InputBlock = (props) => {
 };
 
 InputBlock.propTypes = {
-
+    socketRef: PropTypes.object,
 };
 
 InputBlock.defaultProps = {
-
+    socketRef: {},
 };
 
 export default React.memo(InputBlock);

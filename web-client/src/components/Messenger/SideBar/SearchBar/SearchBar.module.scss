@@ -5,3 +5,36 @@
   height: rem(56px);
   background: var(--surface-color);
 }
+
+.searchIcon {
+  color: var(--secondary-text-color);
+}
+
+.input {
+  width: calc(100% - 40px);
+}
+
+.button {
+  background-color: var(--body-background-color) !important;
+  width: rem(40px);
+  height: rem(40px);
+  padding: 0 !important;
+  min-width: auto !important;
+  border-radius: rem(8px) !important;
+}
+
+.formBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: rem(10px 10px);
+}
+
+.inputInner {
+  border: rem(1px) solid var(--border-color) !important;
+  padding: rem(10px 12px) !important;
+}
+
+.inputRoot {
+  border-radius: rem(30px) !important;
+}

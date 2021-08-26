@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Navbar.module.scss';
 import { Avatar } from '@material-ui/core';
+import { getCookie } from '../../../../utils/auth/getCookie';
 
 const Navbar = (props) => {
     const {
         currentChatInfo,
+        socketRef,
     } = props;
+
+    useEffect(() => {
+        socketRef.current.emit('chat/ENTER', { chatId: props.chatId, token: getCookie('AUTHORIZATION') });
+        return () => {
+            socketRef.current.emit('chat/LEAVE', { chatId: props.chatId, token: getCookie('AUTHORIZATION') });
+        };
+    }, []);
     return (
         <div className={styles.content}>
             <div className={styles.contentRow}>
@@ -28,10 +37,14 @@ const Navbar = (props) => {
 
 Navbar.propTypes = {
     currentChatInfo: PropTypes.object,
+    socketRef: PropTypes.object,
+    chatId: PropTypes.string,
 };
 
 Navbar.defaultProps = {
     currentChatInfo: {},
+    socketRef: {},
+    chatId: '',
 };
 
 export default React.memo(Navbar);

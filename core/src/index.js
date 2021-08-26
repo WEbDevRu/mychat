@@ -23,6 +23,16 @@ async function start() {
         console.log(`MyChat core started on port ${3001}`);
     });
 
+
+    io.on("connection", (socket) => {
+        console.log('user connected');
+        require('../src/services/chat/socketSendMessage')(socket, io)
+    })
+
+    server.listen(8081, () => {
+        console.log(`Socket server listening on port 8081`);
+    });
+
 }
 
 start()

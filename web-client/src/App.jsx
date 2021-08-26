@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {
+    useEffect,
+    useRef,
+} from 'react';
+import socketIOClient from 'socket.io-client';
 import './styles/styles.scss';
 import { Route } from 'react-router-dom';
 import { Messenger } from './components/Messenger';
@@ -8,16 +12,35 @@ import { Registration } from './components/Registration';
 import { VideoConf } from './components/VideoConf';
 import { MessengerProvider } from './context/MessengerContext';
 
+const SOCKET_SERVER_URL = 'http://localhost:8081';
+
 const App = () => {
     const {
         isInitialized,
     } = useApp();
+
+    const socketRef = useRef();
+
+    useEffect(() => {
+        socketRef.current = socketIOClient(SOCKET_SERVER_URL);
+        socketRef.current.emit('auth/AUTH', {
+            token: 'egwtrh',
+        });
+    }, []);
+
     return (
         <>
             {!isInitialized && <LoadingPage />}
             {isInitialized && (
                 <>
-                    <Route path="/chat/:chatId?" render={() => <MessengerProvider><Messenger /></MessengerProvider>} />
+                    <Route
+                        path="/chat/:chatId?"
+                        render={() => (
+                            <MessengerProvider>
+                                <Messenger socketRef={socketRef} />
+                            </MessengerProvider>
+                        )}
+                    />
                     <Route path="/reg" render={() => <Registration />} />
                     <Route path="/conf" render={() => <VideoConf />} />
                 </>

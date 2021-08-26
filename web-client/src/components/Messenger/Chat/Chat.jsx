@@ -12,6 +12,7 @@ const Chat = (props) => {
         currentChatInfo,
         onGetChatHistory,
         currentChatHistory,
+        socketRef,
     } = props;
     const { chatId } = useParams();
 
@@ -28,13 +29,15 @@ const Chat = (props) => {
                     <>
                         <Navbar
                             currentChatInfo={currentChatInfo}
+                            socketRef={socketRef}
+                            chatId={chatId}
                         />
                         <div className={styles.chatCont}>
                             <ChatMessages
                                 currentChatHistory={currentChatHistory}
                                 onGetChatHistory={onGetChatHistory}
                             />
-                            <InputBlock />
+                            <InputBlock socketRef={socketRef} />
                         </div>
                     </>
                 )}
@@ -49,6 +52,7 @@ Chat.propTypes = {
     currentChatInfo: PropTypes.object,
     onGetChatHistory: PropTypes.func,
     currentChatHistory: PropTypes.object,
+    socketRef: PropTypes.object,
 };
 
 Chat.defaultProps = {
@@ -56,6 +60,7 @@ Chat.defaultProps = {
     currentChatInfo: {},
     onGetChatHistory: (f) => f,
     currentChatHistory: {},
+    socketRef: {},
 };
 
 export default React.memo(Chat);
