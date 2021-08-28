@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, TextField } from '@material-ui/core';
 import styles from './SearchBar.module.scss';
-import { SearchIcon} from '../../../Common/Icons/SearchIcon';
+import { SearchIcon } from '../../../Common/Icons/SearchIcon';
 
 const SearchBar = (props) => {
-    const {} = props;
+    const {
+        onGetSearchChats,
+    } = props;
     return (
         <form className={styles.formBlock}>
             <Button
@@ -22,13 +24,9 @@ const SearchBar = (props) => {
                 className={styles.input}
                 name="usernameText"
                 required
-                disableUnderline
-                classes={{
-                    notchedOutline: styles.inputRoot,
-                }}
+                onFocus={onGetSearchChats}
                 inputProps={{
                     className: styles.inputInner,
-                    disableUnderline: true,
                 }}
             />
         </form>
@@ -36,11 +34,11 @@ const SearchBar = (props) => {
 };
 
 SearchBar.propTypes = {
-
+    onGetSearchChats: PropTypes.func,
 };
 
 SearchBar.defaultProps = {
-
+    onGetSearchChats: (f) => f
 };
 
 export default React.memo(SearchBar);

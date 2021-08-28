@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Scrollbar from 'react-scrollbars-custom';
 import styles from './ChatMessages.module.scss';
-import { useParams } from 'react-router-dom';
+import { MessageGroup } from './MessageGroup';
 
 const ChatMessages = (props) => {
     const {
         currentChatHistory,
         onGetChatHistory,
+        chatId,
+        me,
     } = props;
-    const { chatId } = useParams();
 
     useEffect(() => {
         if (chatId) {
@@ -18,7 +20,16 @@ const ChatMessages = (props) => {
 
     return (
         <div className={styles.content}>
-            messages
+            <Scrollbar>
+                {
+                    currentChatHistory?.items?.map((m) => (
+                        <MessageGroup
+                            data={m}
+                            me={me}
+                        />
+                    ))
+                }
+            </Scrollbar>
         </div>
     );
 };
@@ -26,11 +37,15 @@ const ChatMessages = (props) => {
 ChatMessages.propTypes = {
     currentChatHistory: PropTypes.object,
     onGetChatHistory: PropTypes.func,
+    chatId: PropTypes.string,
+    me: PropTypes.object,
 };
 
 ChatMessages.defaultProps = {
     currentChatHistory: {},
     onGetChatHistory: (f) => f,
+    chatId: '',
+    me: {},
 };
 
 export default React.memo(ChatMessages);

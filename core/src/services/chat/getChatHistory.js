@@ -6,7 +6,7 @@ async function getChatHistory({ chatId }, { session } = {}) {
         _id: chatId,
     }).populate('messages.author').session(session);
     return {
-        items: result.toMessagesDto(),
+        items: result.toMessagesDto().items,
     }
 }
 

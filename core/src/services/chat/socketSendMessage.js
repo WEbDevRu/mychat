@@ -1,11 +1,8 @@
-
 const jwt = require("jsonwebtoken");
-
+const { User } = require('../../models/user');
+const { Chat, MESSAGE_TYPES } = require('../../models/chat')
 
 module.exports = (socket, io) => {
-
-
-
     socket.on('chat/ENTER', async (data)=>{
         socket.name = data.token
         await socket.join(data.chatId)
@@ -18,30 +15,40 @@ module.exports = (socket, io) => {
         console.log('leave', data.token, data.chatId);
     })
 
-    //event calls when client send new message
     socket.on('chat/NEW_MESSAGE', async (data) =>{
-        /*let userId = jwt.verify(data.token, 'jerjg').userId
-        let chatId = data.chatId
-        let message = data.text
-        //get information about user, which sent message
-        let user = await ChatUser
-            .findOne({_id: userId})
-            .then(doc => (doc))
+        const userId = jwt.verify(data.token, process.env.TOKEN_SECRET).userId
+        const chatId = data.chatId
+        const message = data.message
+        const now = new Date()
 
-        //form the object of new message
-        message = { creator: userId,
-            creatorName: user.name,
-            creatorColor: user.avatarColor,
-            chat: chatId,
-            type: "normal",
+        const user = await User
+            .findOne({_id: userId})
+
+        const newMessage = {
+            author: {
+                id: userId,
+                username: user.toDto().username,
+            },
             text: message,
-            date: new Date()
+            createdAt: now,
+            type: MESSAGE_TYPES.DEFAULT,
         }
 
-        //send message to all users in chat
-        io.sockets.to(data.chatId).emit('chat/NEW_MESSAGE_POSTED', {message: message}) */
+        await Chat.updateOne({
+            _id: chatId
+        }, {
+            $push: {
+                messages: {
+                    author: userId,
+                    createdAt: now,
+                    text: message,
+                    type: MESSAGE_TYPES.DEFAULT,
+                }
+            }
+        })
 
-        console.log(data)
+        io.sockets.to(chatId).emit('chat/NEW_MESSAGE_POSTED', { newMessage })
+
     })
 
 

@@ -37,11 +37,6 @@ const ShortChat = (props) => {
                         </span>
                         {lastMessage.type === MESSAGE_TYPES.JOIN_CHAT && ' join the chat'}
                     </p>
-                    {/*
-                    <p className={styles.unreadCount}>
-                        149
-                    </p>
-                     */}
                 </div>
             </div>
         </NavLink>

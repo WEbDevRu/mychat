@@ -24,6 +24,11 @@ export const messengerAPI = {
             .then((res) => (res))
             .catch((err) => (err));
     },
+    getSearchChats() {
+        return axiosInstance.get('/messenger/chats', { withCredentials: true })
+            .then((res) => (res))
+            .catch((err) => (err));
+    },
     getChatInfo(chatId) {
         return axiosInstance.get(`/messenger/chat/${chatId}`, { withCredentials: true })
             .then((res) => (res))

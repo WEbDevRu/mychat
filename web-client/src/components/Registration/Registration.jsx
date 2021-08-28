@@ -15,7 +15,6 @@ const Registration = (props) => {
     const {
         setValue,
         register,
-        setError,
         handleSubmit: onSend,
     } = useForm({
         resolver: undefined,

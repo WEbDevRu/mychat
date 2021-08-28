@@ -1,0 +1,46 @@
+@import '../../../../../styles/rem';
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  &.myMessage {
+    justify-content: flex-end;
+  }
+}
+
+.messageBlock {
+  background: var(--body-background-color);
+  border-radius: rem(10px);
+  padding: rem(5px 8px 6px 10px);
+  margin-bottom: rem(8px);
+  &.myMessage {
+    background: var(--message-out-background-color);
+  }
+}
+
+.authorName {
+  font-size: rem(15px);
+  font-weight: 600;
+  margin-bottom: rem(3px) !important;
+}
+
+.messageInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.messageText {
+  font-size: 18px;
+  margin-bottom: 0 !important;
+}
+
+.messageDate {
+  margin-bottom: 0 !important;
+  font-size: rem(12px);
+  position: relative;
+  top: rem(2px);
+  margin-left: rem(6px) !important;
+}

@@ -68,6 +68,7 @@ schema.methods.toShortDto = function toShortDto() {
 schema.methods.toMessagesDto = function toMessagesDto() {
     return {
         items: this.messages.map((m) => ({
+            id: this._id,
             author: toNestedDto(m.author),
             createdAt: m.createdAt,
             text: m.text,

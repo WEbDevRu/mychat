@@ -36,7 +36,7 @@ const App = () => {
                     <Route
                         path="/chat/:chatId?"
                         render={() => (
-                            <MessengerProvider>
+                            <MessengerProvider socketRef={socketRef}>
                                 <Messenger socketRef={socketRef} />
                             </MessengerProvider>
                         )}

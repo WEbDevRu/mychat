@@ -16,7 +16,7 @@ export const AppProvider = (props) => {
     const { children } = props;
     const [isInitialized, setIsInitialized] = useState(false);
     const {
-        setIsAuthorized,
+        setMe,
     } = useAuth();
     const history = useHistory();
 
@@ -26,10 +26,9 @@ export const AppProvider = (props) => {
             setIsInitialized(true);
             if (result.status === httpStatus.OK) {
                 history.push('/chat');
-                setIsAuthorized(true);
+                setMe(result.data.user);
             } else {
                 history.push('/reg');
-                setIsAuthorized(false);
             }
         };
         getMe();

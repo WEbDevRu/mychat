@@ -20,12 +20,27 @@ router.get(
     controller.getChatInfo,
 )
 
+/*router.put(
+    '/chat/:chatId',
+    withUser(),
+    withAuthorization(),
+    schemeValidator.putChatJoin,
+    controller.putChatJoin,
+)*/
+
 router.get(
     '/chat/history/:chatId',
     withUser(),
     withAuthorization(),
     schemeValidator.getChatHistory,
     controller.getChatHistory,
+)
+
+router.get(
+    '/chats',
+    withUser(),
+    withAuthorization(),
+    controller.getChatsList,
 )
 
 module.exports = router;

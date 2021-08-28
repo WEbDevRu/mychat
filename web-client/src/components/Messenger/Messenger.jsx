@@ -3,6 +3,7 @@ import styles from './Messenger.module.scss';
 import { Chat } from './Chat';
 import { SideBar } from './SideBar';
 import { useMessenger } from '../../context/MessengerContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Messenger = (props) => {
     const {
@@ -12,7 +13,13 @@ const Messenger = (props) => {
         currentChatInfo,
         onGetChatHistory,
         currentChatHistory,
+        onGetSearchChats,
+        onSendMessage,
     } = useMessenger();
+
+    const {
+        me,
+    } = useAuth()
 
     const {
         socketRef
@@ -25,6 +32,7 @@ const Messenger = (props) => {
         <div className={styles.content}>
             <SideBar
                 chats={chats}
+                onGetSearchChats={onGetSearchChats}
             />
             <Chat
                 onGetChatInfo={onGetChatInfo}
@@ -32,6 +40,8 @@ const Messenger = (props) => {
                 onGetChatHistory={onGetChatHistory}
                 currentChatHistory={currentChatHistory}
                 socketRef={socketRef}
+                onSendMessage={onSendMessage}
+                me={me}
             />
         </div>
     );
