@@ -25,6 +25,7 @@ module.exports = (socket, io) => {
             .findOne({_id: userId})
 
         const newMessage = {
+            id: now,
             author: {
                 id: userId,
                 username: user.toDto().username,

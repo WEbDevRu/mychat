@@ -24,6 +24,7 @@ const ChatMessages = (props) => {
                 {
                     currentChatHistory?.items?.map((m) => (
                         <MessageGroup
+                            key={m.id}
                             data={m}
                             me={me}
                         />

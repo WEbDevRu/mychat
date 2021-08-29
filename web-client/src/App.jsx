@@ -11,6 +11,7 @@ import { LoadingPage } from './components/Common/LoadingPage';
 import { Registration } from './components/Registration';
 import { VideoConf } from './components/VideoConf';
 import { MessengerProvider } from './context/MessengerContext';
+import { VideoConfProvider } from './context/VideoConfContext';
 
 const SOCKET_SERVER_URL = 'http://localhost:8081';
 
@@ -42,7 +43,14 @@ const App = () => {
                         )}
                     />
                     <Route path="/reg" render={() => <Registration />} />
-                    <Route path="/conf" render={() => <VideoConf />} />
+                    <Route
+                        path="/conf/:chatId?"
+                        render={() => (
+                            <VideoConfProvider>
+                                <VideoConf />
+                            </VideoConfProvider>
+                        )}
+                    />
                 </>
             )}
 

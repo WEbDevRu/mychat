@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styles from './Navbar.module.scss';
 import { Avatar } from '@material-ui/core';
+import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import { Link } from 'react-router-dom';
+import styles from './Navbar.module.scss';
 import { getCookie } from '../../../../utils/auth/getCookie';
 
 const Navbar = (props) => {
     const {
         currentChatInfo,
         socketRef,
+        chatId,
     } = props;
 
     useEffect(() => {
-        socketRef.current.emit('chat/ENTER', { chatId: props.chatId, token: getCookie('AUTHORIZATION') });
+        socketRef.current.emit('chat/ENTER', { chatId, token: getCookie('AUTHORIZATION') });
         return () => {
-            socketRef.current.emit('chat/LEAVE', { chatId: props.chatId, token: getCookie('AUTHORIZATION') });
+            socketRef.current.emit('chat/LEAVE', { chatId, token: getCookie('AUTHORIZATION') });
         };
-    }, []);
+    }, [chatId]);
     return (
         <div className={styles.content}>
             <div className={styles.contentRow}>
@@ -30,6 +33,9 @@ const Navbar = (props) => {
                         {`members${ currentChatInfo.participants?.length}`}
                     </p>
                 </div>
+                <Link to="/conf">
+                    <VoiceChatIcon />
+                </Link>
             </div>
         </div>
     );
