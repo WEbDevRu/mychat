@@ -8,32 +8,38 @@ import styles from './StreamsCont.module.scss';
 
 const StreamsCont = (props) => {
     const myVideoRef = useRef();
+    const foreignVideoRef = useRef();
 
     const {
-        streamConstraints,
+        streams,
+        videoRef,
+        foreignStream,
     } = props;
 
-    console.log(streamConstraints);
-
-    async function getMedia(constraints) {
-        try {
-            return await navigator.mediaDevices.getUserMedia(constraints);
-        } catch (err) {
-            return '';
-        }
-    }
     useEffect(() => {
+        console.log(streams)
         if (myVideoRef.current !== null) {
-            const myStream = getMedia(streamConstraints);
-            myStream
-                .then((stream) => {
-                    myVideoRef.current.srcObject = stream;
-                    myVideoRef.current.play();
-                }).catch((err) => {
-                    console.log(err);
-                });
+            myVideoRef.current.srcObject = streams[0];
+            myVideoRef.current.play();
+
+            foreignVideoRef.current.srcObject = streams[0];
+            foreignVideoRef.current.play();
         }
-    }, [streamConstraints]);
+    }, [streams]);
+
+
+    useEffect(() => {
+        console.log(foreignStream)
+        if (foreignVideoRef.current !== null && foreignStream) {
+            try {
+                foreignVideoRef.current.srcObject = foreignStream;
+                foreignVideoRef.current.play();
+            } catch {(err)=>{
+                console.log( err)
+            }}
+
+        }
+    }, [foreignStream]);
 
     return (
         <div className={styles.content}>
@@ -43,16 +49,26 @@ const StreamsCont = (props) => {
                 autoPlay
                 playsInline
             />
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+                ref={foreignVideoRef}
+                autoPlay
+                playsInline
+            />
         </div>
     );
 };
 
 StreamsCont.propTypes = {
-    streamConstraints: PropTypes.object,
+    streams: PropTypes.array,
+    videoRef: PropTypes.object,
+    foreignStream: PropTypes.object,
 };
 
 StreamsCont.defaultProps = {
-    streamConstraints: {},
+    streams: [],
+    videoRef: {},
+    foreignStream: {},
 };
 
 export default React.memo(StreamsCont);

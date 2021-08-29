@@ -46,7 +46,9 @@ const App = () => {
                     <Route
                         path="/conf/:chatId?"
                         render={() => (
-                            <VideoConfProvider>
+                            <VideoConfProvider
+                                socketRef={socketRef}
+                            >
                                 <VideoConf />
                             </VideoConfProvider>
                         )}

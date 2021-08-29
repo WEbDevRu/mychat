@@ -27,6 +27,7 @@ async function start() {
     io.on("connection", (socket) => {
         console.log('user connected');
         require('../src/services/chat/socketSendMessage')(socket, io)
+        require('../src/services/chat/socketVideoConf')(socket, io)
     })
 
     server.listen(8081, () => {

@@ -33,7 +33,7 @@ const Navbar = (props) => {
                         {`members${ currentChatInfo.participants?.length}`}
                     </p>
                 </div>
-                <Link to="/conf">
+                <Link to={`/conf/${chatId}`}>
                     <VoiceChatIcon />
                 </Link>
             </div>

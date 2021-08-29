@@ -47,12 +47,6 @@ module.exports = (socket, io) => {
                 }
             }
         })
-
         io.sockets.to(chatId).emit('chat/NEW_MESSAGE_POSTED', { newMessage })
-
     })
-
-
-
-
 }
