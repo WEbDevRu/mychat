@@ -20,6 +20,7 @@ services:
       - MONGO_URL=mongodb://mongo:27017/mychat
     ports:
       - 26502:3001
+      - 26503:8081
 
   web-client:
     build:
