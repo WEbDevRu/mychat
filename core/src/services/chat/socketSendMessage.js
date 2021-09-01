@@ -6,13 +6,11 @@ module.exports = (socket, io) => {
     socket.on('chat/ENTER', async (data)=>{
         socket.name = data.token
         await socket.join(data.chatId)
-        console.log('join', data.token, data.chatId);
     })
 
     socket.on('chat/LEAVE',  async (data)=>{
         socket.name = data.token
         await socket.leave(data.chatId)
-        console.log('leave', data.token, data.chatId);
     })
 
     socket.on('chat/NEW_MESSAGE', async (data) =>{

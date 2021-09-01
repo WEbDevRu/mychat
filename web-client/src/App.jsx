@@ -12,8 +12,7 @@ import { Registration } from './components/Registration';
 import { VideoConf } from './components/VideoConf';
 import { MessengerProvider } from './context/MessengerContext';
 import { VideoConfProvider } from './context/VideoConfContext';
-
-const SOCKET_SERVER_URL = 'http://localhost:8081';
+import config from '../src/config/index';
 
 const App = () => {
     const {
@@ -23,7 +22,7 @@ const App = () => {
     const socketRef = useRef();
 
     useEffect(() => {
-        socketRef.current = socketIOClient(SOCKET_SERVER_URL);
+        socketRef.current = socketIOClient(config.socketServerURL);
         socketRef.current.emit('auth/AUTH', {
             token: 'egwtrh',
         });

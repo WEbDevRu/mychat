@@ -24,7 +24,6 @@ const MessageGroup = (props) => {
                 {!myMessage && (
                     <Typography
                         gutterBottom
-                        variant="p"
                         component="p"
                         className={styles.authorName}
                     >
@@ -34,7 +33,6 @@ const MessageGroup = (props) => {
                 <div className={styles.messageInfo}>
                     <Typography
                         gutterBottom
-                        variant="p"
                         component="p"
                         className={styles.messageText}
                     >
@@ -43,7 +41,6 @@ const MessageGroup = (props) => {
 
                     <Typography
                         gutterBottom
-                        variant="p"
                         component="p"
                         className={styles.messageDate}
                     >

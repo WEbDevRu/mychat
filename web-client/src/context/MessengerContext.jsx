@@ -17,7 +17,7 @@ export const MessengerProvider = (props) => {
         children,
         socketRef,
     } = props;
-    const [chats, setChats] = useState([]);
+    const [chats, setChats] = useState({});
     const [currentChatInfo, setCurrentChatInfo] = useState({});
     const [currentChatHistory, setCurrentChatHistory] = useState({});
     const onGetChats = async () => {

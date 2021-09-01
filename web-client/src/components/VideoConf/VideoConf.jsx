@@ -10,8 +10,8 @@ const VideoConf = () => {
         streamConstraints,
         setStreamConstraints,
         onVideoConfJoin,
-        streams,
-        foreignStream,
+        myStream,
+        socketRef,
     } = useVideoConf();
 
     const { chatId } = useParams();
@@ -23,8 +23,9 @@ const VideoConf = () => {
         <div className={styles.content}>
             <StreamsCont
                 streamConstraints={streamConstraints}
-                streams={streams}
-                foreignStream={foreignStream}
+                myStream={myStream}
+                chatId={chatId}
+                socketRef={socketRef}
             />
             <ControlBar
                 setStreamConstraints={setStreamConstraints}

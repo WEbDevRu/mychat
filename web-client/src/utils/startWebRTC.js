@@ -2,7 +2,7 @@ import { getCookie } from './auth/getCookie';
 
 const configuration = {
     iceServers: [{
-        urls: 'stun:stun.l.google.com:19302',
+        url: 'stun:stun.l.google.com:19302',
     }],
 };
 
@@ -27,10 +27,9 @@ const localDescCreated = ({
 };
 
 export const startWebRTC = ({
-    isOffering, socketRef, myStream, userId, chatId, setForeignStream,
+    isOffering, socketRef, myStream, userId, chatId, foreignStream,
 }) => {
     const pc = new RTCPeerConnection(configuration);
-    console.log(chatId);
 
     if (myStream) {
         myStream
@@ -52,6 +51,7 @@ export const startWebRTC = ({
 
     if (isOffering) {
         pc.onnegotiationneeded = () => {
+            if (pc.signalingState !== 'stable') return;
             pc.createOffer()
                 .then((desc) => localDescCreated({
                     desc, pc, socketRef, chatId,
@@ -61,12 +61,12 @@ export const startWebRTC = ({
     }
 
     pc.ontrack = (event) => {
-        console.log(event.streams)
-        setForeignStream(event.streams[0]);
+        console.log(event.streams[0]);
+        foreignStream.current = event.streams[0];
     };
 
     socketRef.current.on('videoConf/NEW_SDP', (data) => {
-        if (data.userId !== userId) {
+        if (data.userId !== userId && !foreignStream.current) {
             pc.setRemoteDescription(new RTCSessionDescription(data.sdp), () => {
                 // When receiving an offer lets answer it
                 if (pc.remoteDescription.type === 'offer') {
@@ -83,8 +83,7 @@ export const startWebRTC = ({
     });
 
     socketRef.current.on('videoConf/NEW_ICE_CANDIDATE', (data) => {
-        console.log(data.userId, userId);
-        if (data.userId !== userId) {
+        if (data.userId !== userId && !foreignStream.current) {
             pc.addIceCandidate(
                 new RTCIceCandidate(data.candidate), onSuccess, onError,
             );

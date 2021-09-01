@@ -5,70 +5,50 @@ import React, {
 import PropTypes from 'prop-types';
 
 import styles from './StreamsCont.module.scss';
+import useWebRTC from '../../../utils/useWebRTC';
 
 const StreamsCont = (props) => {
     const myVideoRef = useRef();
-    const foreignVideoRef = useRef();
-
     const {
-        streams,
-        videoRef,
-        foreignStream,
+        myStream,
+        streamConstraints,
+        socketRef,
+        chatId,
     } = props;
 
-    useEffect(() => {
-        console.log(streams)
-        if (myVideoRef.current !== null) {
-            myVideoRef.current.srcObject = streams[0];
-            myVideoRef.current.play();
-
-            foreignVideoRef.current.srcObject = streams[0];
-            foreignVideoRef.current.play();
-        }
-    }, [streams]);
-
-
-    useEffect(() => {
-        console.log(foreignStream)
-        if (foreignVideoRef.current !== null && foreignStream) {
-            try {
-                foreignVideoRef.current.srcObject = foreignStream;
-                foreignVideoRef.current.play();
-            } catch {(err)=>{
-                console.log( err)
-            }}
-
-        }
-    }, [foreignStream]);
+    const { clients, provideMediaRef } = useWebRTC(chatId, socketRef);
 
     return (
         <div className={styles.content}>
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-            <video
-                ref={myVideoRef}
-                autoPlay
-                playsInline
-            />
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-            <video
-                ref={foreignVideoRef}
-                autoPlay
-                playsInline
-            />
+            {clients.map((clientID) => (
+                <div key={clientID}>
+                    <video
+                        width="100%"
+                        height="100%"
+                        ref={(instance) => {
+                            provideMediaRef(clientID, instance);
+                        }}
+                        autoPlay
+                        playsInline
+                    />
+                </div>
+            ))}
         </div>
     );
 };
 
 StreamsCont.propTypes = {
-    streams: PropTypes.array,
-    videoRef: PropTypes.object,
-    foreignStream: PropTypes.object,
+    myStream: PropTypes.object,
+    streamConstraints: PropTypes.object,
+    socketRef: PropTypes.object,
+    chatId: PropTypes.string,
 };
 
 StreamsCont.defaultProps = {
-    streams: [],
-    videoRef: {},
-    foreignStream: {},
+    myStream: {},
+    streamConstraints: {},
+    socketRef: {},
+    chatId: '',
 };
 
 export default React.memo(StreamsCont);
