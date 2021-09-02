@@ -16,3 +16,11 @@ exports.getChatHistory= validate({
             .required()
     }),
 });
+
+exports.putChatJoin = validate({
+    params: Joi.object({
+        chatId: Joi
+            .string()
+            .required()
+    })
+})

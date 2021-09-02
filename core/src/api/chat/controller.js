@@ -3,6 +3,7 @@ const { getChats } = require('../../services/chat/getChats');
 const { getChatInfo } = require('../../services/chat/getChatInfo');
 const { getChatHistory } = require('../../services/chat/getChatHistory');
 const { getChatsList } = require('../../services/chat/getChatsList');
+const { joinUserToChatWT } = require('../../services/chat/joinUserToChat');
 const { wrapAsyncMiddleware } = require('../../middelwares/wrapAsyncMiddleware');
 
 exports.getChats = wrapAsyncMiddleware( async(req, res) => {
@@ -28,5 +29,13 @@ exports.getChatHistory = wrapAsyncMiddleware( async(req, res) => {
 
 exports.getChatsList = wrapAsyncMiddleware( async(req, res) => {
     const result = await getChatsList()
+    return res.status(httpStatus.OK).json(result);
+})
+
+exports.putChatJoin = wrapAsyncMiddleware( async(req, res) => {
+    const result = await joinUserToChatWT({
+        chatId: req.params.chatId,
+        userId: req.data.user._id,
+    });
     return res.status(httpStatus.OK).json(result);
 })

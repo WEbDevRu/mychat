@@ -20,13 +20,13 @@ router.get(
     controller.getChatInfo,
 )
 
-/*router.put(
-    '/chat/:chatId',
+router.put(
+    '/chat/:chatId/join',
     withUser(),
     withAuthorization(),
     schemeValidator.putChatJoin,
     controller.putChatJoin,
-)*/
+);
 
 router.get(
     '/chat/history/:chatId',

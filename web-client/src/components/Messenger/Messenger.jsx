@@ -15,15 +15,18 @@ const Messenger = (props) => {
         currentChatHistory,
         onGetSearchChats,
         onSendMessage,
+        sidebarState,
+        setSideBarState,
+        onJoinUserToChat,
     } = useMessenger();
 
     const {
         me,
-    } = useAuth()
+    } = useAuth();
 
     const {
         socketRef
-    } = props
+    } = props;
 
     useEffect(() => {
         onGetChats();
@@ -33,6 +36,9 @@ const Messenger = (props) => {
             <SideBar
                 chats={chats}
                 onGetSearchChats={onGetSearchChats}
+                sidebarState={sidebarState}
+                setSideBarState={setSideBarState}
+                me={me}
             />
             <Chat
                 onGetChatInfo={onGetChatInfo}
@@ -42,6 +48,7 @@ const Messenger = (props) => {
                 socketRef={socketRef}
                 onSendMessage={onSendMessage}
                 me={me}
+                onJoinUserToChat={onJoinUserToChat}
             />
         </div>
     );

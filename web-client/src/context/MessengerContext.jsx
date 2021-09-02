@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import httpStatus from 'http-status';
 import { messengerAPI } from '../utils/api/api';
 import { getCookie } from '../utils/auth/getCookie';
+import { SIDEBAR_STATES } from '../const/messenger/SIDEBAR_STATES';
 
 const MessengerContext = createContext({});
 export const useMessenger = () => useContext(MessengerContext);
@@ -20,6 +21,8 @@ export const MessengerProvider = (props) => {
     const [chats, setChats] = useState({});
     const [currentChatInfo, setCurrentChatInfo] = useState({});
     const [currentChatHistory, setCurrentChatHistory] = useState({});
+    const [sidebarState, setSideBarState] = useState(SIDEBAR_STATES.CHATS);
+
     const onGetChats = async () => {
         const result = await messengerAPI.getChats();
         if (result.status === httpStatus.OK) {
@@ -56,6 +59,13 @@ export const MessengerProvider = (props) => {
         });
     };
 
+    const onJoinUserToChat = async ({ chatId }) => {
+        const result = await messengerAPI.joinUserToChat(chatId);
+        if (result.status === httpStatus.OK) {
+            setCurrentChatInfo(result.data?.chatInfo);
+        }
+    };
+
     useEffect(() => {
         socketRef.current.on('chat/NEW_MESSAGE_POSTED', (data) => {
             setCurrentChatHistory((h) => ({
@@ -75,6 +85,9 @@ export const MessengerProvider = (props) => {
                 currentChatHistory,
                 onGetSearchChats,
                 onSendMessage,
+                sidebarState,
+                setSideBarState,
+                onJoinUserToChat,
             }}
         >
             {children}

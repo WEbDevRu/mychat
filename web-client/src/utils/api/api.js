@@ -39,4 +39,9 @@ export const messengerAPI = {
             .then((res) => (res))
             .catch((err) => (err));
     },
+    joinUserToChat(chatId) {
+        return axiosInstance.put(`/messenger/chat/${chatId}/join`, '', { withCredentials: true })
+            .then((res) => (res))
+            .catch((err) => (err));
+    },
 };

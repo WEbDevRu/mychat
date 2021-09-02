@@ -8,12 +8,16 @@ const SideBar = (props) => {
     const {
         chats,
         onGetSearchChats,
+        sidebarState,
+        setSideBarState,
     } = props;
 
     return (
         <div className={styles.content}>
             <SearchBar
                 onGetSearchChats={onGetSearchChats}
+                sidebarState={sidebarState}
+                setSideBarState={setSideBarState}
             />
             <ChatsList
                 chats={chats}
@@ -25,12 +29,15 @@ const SideBar = (props) => {
 SideBar.propTypes = {
     chats: PropTypes.object,
     onGetSearchChats: PropTypes.func,
-
+    sidebarState: PropTypes.string,
+    setSideBarState: PropTypes.func,
 };
 
 SideBar.defaultProps = {
     chats: {},
     onGetSearchChats: (f) => f,
+    sidebarState: '',
+    setSideBarState: (f) => f,
 };
 
 export default React.memo(SideBar);

@@ -15,6 +15,7 @@ const Chat = (props) => {
         socketRef,
         onSendMessage,
         me,
+        onJoinUserToChat,
     } = props;
     const { chatId } = useParams();
 
@@ -23,6 +24,10 @@ const Chat = (props) => {
             onGetChatInfo(chatId);
         }
     }, [chatId]);
+    let isJoinedToChat = false;
+    if (currentChatInfo.participants?.find(((i) => i.participant.id === me.id))) {
+        isJoinedToChat = true;
+    }
     return (
         <div className={styles.content}>
             <Route
@@ -33,6 +38,9 @@ const Chat = (props) => {
                             currentChatInfo={currentChatInfo}
                             socketRef={socketRef}
                             chatId={chatId}
+                            me={me}
+                            isJoinedToChat={isJoinedToChat}
+                            onJoinUserToChat={onJoinUserToChat}
                         />
                         <div className={styles.chatCont}>
                             <ChatMessages
@@ -41,10 +49,13 @@ const Chat = (props) => {
                                 chatId={chatId}
                                 me={me}
                             />
-                            <InputBlock
-                                onSendMessage={onSendMessage}
-                                chatId={chatId}
-                            />
+                            {isJoinedToChat && (
+                                <InputBlock
+                                    onSendMessage={onSendMessage}
+                                    chatId={chatId}
+                                    isJoinedToChat={isJoinedToChat}
+                                />
+                            )}
                         </div>
                     </>
                 )}
@@ -62,6 +73,7 @@ Chat.propTypes = {
     socketRef: PropTypes.object,
     onSendMessage: PropTypes.func,
     me: PropTypes.object,
+    onJoinUserToChat: PropTypes.func,
 };
 
 Chat.defaultProps = {
@@ -72,6 +84,7 @@ Chat.defaultProps = {
     socketRef: {},
     onSendMessage: (f) => f,
     me: {},
+    onJoinUserToChat: (f) => f,
 };
 
 export default React.memo(Chat);

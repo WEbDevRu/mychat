@@ -1,4 +1,7 @@
+@import '../../../../styles/rem';
+
 .content {
   height: 100%;
   width: 100%;
+  padding-bottom: rem(10px);
 }
