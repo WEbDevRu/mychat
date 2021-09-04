@@ -23,4 +23,12 @@ exports.putChatJoin = validate({
             .string()
             .required()
     })
+});
+
+exports.getChatsList = validate({
+    query: Joi.object({
+        searchString: Joi
+            .string()
+            .required()
+    })
 })

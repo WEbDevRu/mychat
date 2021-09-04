@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {
+    useEffect,
+    useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Input, IconButton } from '@material-ui/core';
+import { Input, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from './SearchBar.module.scss';
@@ -8,14 +11,27 @@ import { SearchIcon } from '../../../Common/Icons/SearchIcon';
 import { SIDEBAR_STATES } from '../../../../const/messenger/SIDEBAR_STATES';
 
 const SearchBar = (props) => {
+    const [searchInput, setSearchInput] = useState();
     const {
         onGetSearchChats,
         sidebarState,
         setSideBarState,
     } = props;
 
+    const handleChange = ({ value }) => {
+        setSearchInput(value);
+        if (value.trim()) {
+            onGetSearchChats({ searchString: value });
+        }
+    };
+
+    useEffect(() => {
+        if (sidebarState === SIDEBAR_STATES.CHATS) {
+            setSearchInput('');
+        }
+    }, [sidebarState]);
+
     const handleSearchList = () => {
-        onGetSearchChats();
         setSideBarState(SIDEBAR_STATES.SEARCH);
     };
     return (
@@ -49,6 +65,8 @@ const SearchBar = (props) => {
                     name="usernameText"
                     required
                     onFocus={handleSearchList}
+                    value={searchInput}
+                    onChange={(e) => handleChange({ value: e.target.value, name: e.target.name })}
                     inputProps={{
                         className: styles.inputInner,
                     }}

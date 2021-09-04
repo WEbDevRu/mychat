@@ -40,6 +40,7 @@ router.get(
     '/chats',
     withUser(),
     withAuthorization(),
+    schemeValidator.getChatsList,
     controller.getChatsList,
 )
 

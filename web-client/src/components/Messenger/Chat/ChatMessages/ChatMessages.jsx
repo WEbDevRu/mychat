@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, {
+    useEffect,
+    useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import Scrollbar from 'react-scrollbars-custom';
 import styles from './ChatMessages.module.scss';
 import { MessageGroup } from './MessageGroup';
 
 const ChatMessages = (props) => {
+    const scrollBarRef = useRef();
     const {
         currentChatHistory,
         onGetChatHistory,
@@ -18,9 +22,15 @@ const ChatMessages = (props) => {
         }
     }, [chatId]);
 
+    useEffect(() => {
+        scrollBarRef.current.scrollToBottom();
+    }, [currentChatHistory]);
+
     return (
         <div className={styles.content}>
-            <Scrollbar>
+            <Scrollbar
+                ref={scrollBarRef}
+            >
                 {
                     currentChatHistory?.items?.map((m) => (
                         <MessageGroup

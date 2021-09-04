@@ -12,6 +12,7 @@ const ShortChat = (props) => {
         name,
         lastMessage,
     } = props;
+
     return (
         <NavLink
             className={styles.content}
@@ -36,6 +37,7 @@ const ShortChat = (props) => {
                             {lastMessage.author.username}
                         </span>
                         {lastMessage.type === MESSAGE_TYPES.JOIN_CHAT && ' join the chat'}
+                        {lastMessage.type === MESSAGE_TYPES.DEFAULT && ` ${ lastMessage.text}`}
                     </p>
                 </div>
             </div>

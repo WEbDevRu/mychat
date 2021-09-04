@@ -21,9 +21,10 @@
 }
 
 .authorName {
-  font-size: rem(15px);
+  font-size: 15px !important;
   font-weight: 600;
-  margin-bottom: rem(3px) !important;
+  margin-bottom: 0 !important;
+  color: var(--primary-color);
 }
 
 .messageInfo {
@@ -33,14 +34,27 @@
 }
 
 .messageText {
-  font-size: 18px;
+  font-size: rem(16px) !important;
   margin-bottom: 0 !important;
 }
 
 .messageDate {
   margin-bottom: 0 !important;
-  font-size: rem(12px);
+  font-size: rem(12px) !important;
   position: relative;
-  top: rem(2px);
+  top: rem(8px);
   margin-left: rem(6px) !important;
+  color: var(--secondary-text-color);
+}
+
+.joinMessage {
+  background: rgba(109, 141, 65, 0.4);
+  width: fit-content;
+  color: white;
+  font-size: rem(16px);
+  padding: rem(6px 14px);
+  border-radius: rem(20px);
+  margin: rem(auto auto 10px);
+  font-weight: 500;
+  line-height: 100%;
 }

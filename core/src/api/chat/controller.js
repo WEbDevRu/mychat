@@ -28,7 +28,7 @@ exports.getChatHistory = wrapAsyncMiddleware( async(req, res) => {
 })
 
 exports.getChatsList = wrapAsyncMiddleware( async(req, res) => {
-    const result = await getChatsList()
+    const result = await getChatsList({ searchString: req.query.searchString });
     return res.status(httpStatus.OK).json(result);
 })
 

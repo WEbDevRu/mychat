@@ -44,8 +44,8 @@ export const MessengerProvider = (props) => {
         }
     };
 
-    const onGetSearchChats = async () => {
-        const result = await messengerAPI.getSearchChats();
+    const onGetSearchChats = async ({ searchString }) => {
+        const result = await messengerAPI.getSearchChats(searchString);
         if (result.status === httpStatus.OK) {
             setChats(result.data);
         }
@@ -73,6 +73,13 @@ export const MessengerProvider = (props) => {
             }));
         });
     }, []);
+
+    useEffect(() => {
+        setChats({});
+        if (sidebarState === SIDEBAR_STATES.CHATS) {
+            onGetChats();
+        }
+    }, [sidebarState]);
 
     return (
         <MessengerContext.Provider

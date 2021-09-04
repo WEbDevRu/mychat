@@ -1,9 +1,17 @@
 const { Chat } = require('../../models/chat');
 const { withTransaction } = require('../../utils/withTransaction');
 
-async function getChatsList({ session } = {}) {
+async function getChatsList({ searchString },{ session } = {}) {
+
+    const escapeRegex = (text) =>{
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    };
+    const nameRegex = new RegExp(escapeRegex(searchString), 'gi');
+
     const result = await Chat
-        .find({})
+        .find({
+            name: nameRegex,
+        })
         .populate('messages.author')
         .session(session)
     return {
