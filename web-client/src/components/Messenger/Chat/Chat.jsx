@@ -25,6 +25,7 @@ const Chat = (props) => {
         }
     }, [chatId]);
     let isJoinedToChat = false;
+    console.log(me);
     if (currentChatInfo.participants?.find(((i) => i.participant.id === me.id))) {
         isJoinedToChat = true;
     }

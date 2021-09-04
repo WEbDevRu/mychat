@@ -60,7 +60,7 @@ Navbar.propTypes = {
     currentChatInfo: PropTypes.object,
     socketRef: PropTypes.object,
     chatId: PropTypes.string,
-    isJoinedToChat: PropTypes.string,
+    isJoinedToChat: PropTypes.bool,
     onJoinUserToChat: PropTypes.func,
 };
 

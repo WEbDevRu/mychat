@@ -52,7 +52,9 @@ const ControlBar = (props) => {
                         <ExitToAppIcon />
                     </IconButton>
                 </Link>
-                {streamConstraints.video ? (
+                {
+                    /*
+                     {streamConstraints.video ? (
                     <IconButton onClick={handleDisableCam}>
                         <VideocamOffIcon />
                     </IconButton>
@@ -70,6 +72,10 @@ const ControlBar = (props) => {
                         <MicIcon />
                     </IconButton>
                 )}
+
+                     */
+                }
+
 
             </div>
         </div>

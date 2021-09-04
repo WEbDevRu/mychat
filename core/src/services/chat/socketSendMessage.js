@@ -20,7 +20,7 @@ module.exports = (socket, io) => {
         const now = new Date()
 
         const user = await User
-            .findOne({_id: userId})
+            .findOne({ _id: userId })
 
         const newMessage = {
             id: now,
