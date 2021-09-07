@@ -41,7 +41,6 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME
       - ME_CONFIG_BASICAUTH_PASSWORD
 
-
 networks:
   default:
     external:
