@@ -31,6 +31,12 @@ services:
   mongoExpress:
     ports:
       - 26505:8081
+    image: mongo-express
+    restart: always
+    depends_on:
+      - mongo
+    links:
+      - mongo
     environment:
       - ME_CONFIG_BASICAUTH_USERNAME
       - ME_CONFIG_BASICAUTH_PASSWORD
