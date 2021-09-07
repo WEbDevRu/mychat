@@ -13,9 +13,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^2.23.0",
     "dotenv": "^10.0.0",
-    "history": "^5.0.0",
     "http-status": "^1.5.0",
-    "jsonwebtoken": "^8.5.1",
     "prop-types": "15.7.2",
     "react": "17.0.2",
     "react-cookie": "4.0.3",
@@ -26,12 +24,8 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "react-scrollbars-custom": "4.0.25",
-    "redux": "4.1.0",
-    "redux-promise-middleware": "6.1.2",
-    "redux-thunk": "2.3.0",
     "sass": "1.35.1",
     "socket.io-client": "4.0.1",
-    "styled-components": "5.2.3",
     "web-vitals": "1.1.1"
   },
   "scripts": {

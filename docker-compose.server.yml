@@ -20,7 +20,6 @@ services:
       - MONGO_URL=mongodb://mongo:27017/mychat
     ports:
       - 26502:3001
-      - 26503:8081
 
   web-client:
     build:
@@ -28,6 +27,14 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 26501:3000
+
+  mongoExpress:
+    ports:
+      - 26505:8081
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=${DB_WEB_VIEW_USER_TEST}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${DB_WEB_VIEW_PASS_TEST}
+
 
 networks:
   default:
