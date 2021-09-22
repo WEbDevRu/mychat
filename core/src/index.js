@@ -1,11 +1,8 @@
-const express = require('express');
-const httpStatus = require('http-status');
-const routes = require('./api');
-const router = express.Router();
 const { app } = require('./config/express');
 const { connectMongoose } = require('./config/mongoose')
-const server = require("http").createServer();
 const socketIO = require("socket.io");
+const socketServer = require('./utils/socket/socketEngine');
+const socketRouter =  require('./socket/chat/router');
 
 async function start() {
     await connectMongoose();
@@ -13,27 +10,19 @@ async function start() {
     const server = app.listen(3001, () => {
         console.log(`MyChat core started on port ${3001}`);
     });
-    
 
-    const io = (socketIO)(server, {
-        cors: {
-            origin: "*",
-        },
-    });
-    io.sockets.on('connection', function (socket) {
-        socket.on('message', function () { });
-        socket.on('disconnect', function () { });
-    });
+    const socket = new socketServer(server);
+    socket.start()
+    socket.onConnection(()=> console.log('ergrwth'))
+    socketRouter(socket);
 
-    io.on("connection", (socket) => {
-        console.log('user connected');
+     /*io.on("connection", (socket) => {
         require('../src/services/chat/socketSendMessage')(socket, io)
         require('../src/services/chat/socketVideoConf')(socket, io)
-    })
+    }) */
 
 }
 
 start()
 
 module.exports = app;
-
