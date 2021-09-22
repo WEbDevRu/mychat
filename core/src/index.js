@@ -13,6 +13,7 @@ async function start() {
     const server = app.listen(3001, () => {
         console.log(`MyChat core started on port ${3001}`);
     });
+    
 
     const io = (socketIO)(server, {
         cors: {
