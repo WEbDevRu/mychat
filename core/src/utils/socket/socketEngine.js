@@ -1,12 +1,12 @@
 const socketIO = require("socket.io");
 
 class socketServer {
-    constructor(httpServer) {
-        this.httpServer = httpServer
+    constructor() {
+
     }
 
-    start() {
-            this.io = (socketIO)(this.httpServer, {
+    start(httpServer) {
+            this.io = (socketIO)(httpServer, {
                 cors: {
                     origin: "*",
                 },
@@ -22,6 +22,10 @@ class socketServer {
             socket.on(path, cb)
         )
     }
+
+    use(routes) {
+        routes.forEach((i) => this.addRoute({ path: i.path, cb: i.cb }));
+    }
 }
 
-module.exports = socketServer;
+module.exports = new socketServer();
