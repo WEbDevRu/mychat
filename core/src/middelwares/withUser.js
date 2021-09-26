@@ -11,7 +11,7 @@ const MIDDLEWARE_KEYS = {
     'USER': 'user',
 }
 
-async function getByType ({req, type}) {
+async function getByType ({ req, type }) {
     if ( type === AUTHORIZATION_TYPES.COOKIE_TOKEN) {
         const accessToken = req.cookies.AUTHORIZATION;
         if (accessToken){
@@ -24,7 +24,7 @@ async function getByType ({req, type}) {
         }
     }
 }
-function withUser({type =AUTHORIZATION_TYPES.COOKIE_TOKEN, key = MIDDLEWARE_KEYS.USER} = {}) {
+function withUser({ type =AUTHORIZATION_TYPES.COOKIE_TOKEN, key = MIDDLEWARE_KEYS.USER } = {}) {
     return wrapAsyncMiddleware(async (req, res, next) => {
         req.data = req.data || {};
         if (key === MIDDLEWARE_KEYS.USER) {
