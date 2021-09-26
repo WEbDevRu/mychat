@@ -18,6 +18,7 @@ services:
       - TOKEN_SECRET=qwerty
       - CORS_ORIGIN=*
       - MONGO_URL=mongodb://mongo:27017/mychat
+    restart: always
     ports:
       - 26502:3001
 
@@ -25,6 +26,7 @@ services:
     build:
       context: ./web-client
       dockerfile: Dockerfile.prod
+    restart: always
     ports:
       - 26501:3000
 
