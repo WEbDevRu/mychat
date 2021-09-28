@@ -29,7 +29,6 @@ const InputBlock = (props) => {
     }, []);
 
     const handleSubmit = onSend(async (data) => {
-
         if (data.messageText && data.messageText.trim()) {
             onSendMessage({
                 message: data.messageText,

@@ -20,7 +20,7 @@ const StreamsCont = (props) => {
 
     return (
         <div className={styles.content}>
-            <div className={cnb(styles.streamsCont,{
+            <div className={cnb(styles.streamsCont, {
                 [styles.oneStream]: clients.length === 1,
                 [styles.twoStreams]: clients.length === 2,
                 [styles.threeStreams]: clients.length === 3,
@@ -39,8 +39,8 @@ const StreamsCont = (props) => {
                     >
                         <>
                             <video
-                                width='100%'
-                                height='100%'
+                                width="100%"
+                                height="100%"
                                 ref={(instance) => {
                                     provideMediaRef(c.peerID, instance);
                                 }}

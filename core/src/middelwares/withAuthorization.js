@@ -4,9 +4,11 @@ exports.withAuthorization = () => (req, res, next) => {
     const {
         data: { user } = {},
     } = req;
-    if (!user) {
+    if (!user && res) {
         res.status(httpStatus.UNAUTHORIZED).json({status: 'error'});
     }
-
-    next();
+    if (next) {
+        next();
+    }
+    return req
 };
