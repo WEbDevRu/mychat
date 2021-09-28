@@ -24,13 +24,16 @@ async function getByType ({ req, type }) {
         }
     }
 }
-function withUser({ type =AUTHORIZATION_TYPES.COOKIE_TOKEN, key = MIDDLEWARE_KEYS.USER } = {}) {
+function withUser({ type = AUTHORIZATION_TYPES.COOKIE_TOKEN, key = MIDDLEWARE_KEYS.USER } = {}) {
     return wrapAsyncMiddleware(async (req, res, next) => {
         req.data = req.data || {};
         if (key === MIDDLEWARE_KEYS.USER) {
-            req.data.user = await getByType({req, type})
+            req.data.user = await getByType( { req, type });
         }
-        next()
+        if (next) {
+            next();
+        }
+        return req
     })
 }
 

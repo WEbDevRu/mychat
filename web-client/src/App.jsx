@@ -12,7 +12,7 @@ import { Registration } from './components/Registration';
 import { VideoConf } from './components/VideoConf';
 import { MessengerProvider } from './context/MessengerContext';
 import { VideoConfProvider } from './context/VideoConfContext';
-import config from '../src/config/index';
+import config from './config/index';
 
 const App = () => {
     const {

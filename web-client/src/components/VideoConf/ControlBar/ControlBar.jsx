@@ -76,7 +76,6 @@ const ControlBar = (props) => {
                      */
                 }
 
-
             </div>
         </div>
     );

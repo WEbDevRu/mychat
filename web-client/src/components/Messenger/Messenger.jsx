@@ -25,7 +25,7 @@ const Messenger = (props) => {
     } = useAuth();
 
     const {
-        socketRef
+        socketRef,
     } = props;
 
     useEffect(() => {
