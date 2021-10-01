@@ -5,19 +5,6 @@ const axiosInstance = axios.create({
     baseURL: `${config.backendURL}/api`,
 });
 
-export const authAPI = {
-    getMe() {
-        return axiosInstance.get('/auth', { withCredentials: true })
-            .then((res) => (res))
-            .catch((err) => (err.response));
-    },
-    postMe(data) {
-        return axiosInstance.post('/auth', data)
-            .then((res) => (res))
-            .catch((err) => (err));
-    },
-};
-
 export const messengerAPI = {
     getChats() {
         return axiosInstance.get('/messenger', { withCredentials: true })
