@@ -10,7 +10,7 @@ const DEFAULT_STATE = {
 };
 
 export const useRequest = ({ url, method }) => {
-    const [state, setState] = useState();
+    const [state, setState] = useState(DEFAULT_STATE);
     const onRequest = async (data) => {
         setState({
             ...DEFAULT_STATE,
@@ -22,11 +22,12 @@ export const useRequest = ({ url, method }) => {
                 url,
                 method,
                 data,
+                withCredentials: true,
             });
             setState({
                 ...DEFAULT_STATE,
                 status: HTTP_REQUEST_STATUSES.SUCCEEDED,
-                result: response,
+                result: response.data,
             });
         } catch (e) {
             setState({

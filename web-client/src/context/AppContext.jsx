@@ -4,10 +4,12 @@ import React, {
     useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import httpStatus from 'http-status';
 import { useHistory } from 'react-router-dom';
-import { authAPI } from '../utils/api/api';
 import { useAuth } from './AuthContext';
+import { useRequest } from '../hooks/useRequest';
+import { API_AUTH } from '../const/http/routes';
+import { HTTP_REQUEST_METHODS } from '../const/http/HTTP_REQUEST_METHODS';
+import { HTTP_REQUEST_STATUSES } from '../const/http/HTTP_REQUEST_STATUSES';
 
 const AppContext = createContext({});
 export const useApp = () => useContext(AppContext);
@@ -20,19 +22,28 @@ export const AppProvider = (props) => {
     } = useAuth();
     const history = useHistory();
 
+    const { state: getMeRS, onRequest: getMe } = useRequest({
+        url: API_AUTH,
+        method: HTTP_REQUEST_METHODS.GET,
+    });
+
     useEffect(() => {
-        const getMe = async () => {
-            const result = await authAPI.getMe();
-            setIsInitialized(true);
-            if (result.status === httpStatus.OK) {
-                history.push('/chat');
-                setMe(result.data.user);
-            } else {
-                history.push('/reg');
-            }
-        };
         getMe();
     }, []);
+
+    useEffect(() => {
+        if (getMeRS.isProcessing) {
+            return;
+        }
+        if (getMeRS.status === HTTP_REQUEST_STATUSES.SUCCEEDED) {
+            history.push('/chat');
+            setMe(getMeRS.result.user);
+            setIsInitialized(true);
+        } else {
+            history.push('/reg');
+            setIsInitialized(true);
+        }
+    }, [getMeRS]);
 
     return (
         <AppContext.Provider
