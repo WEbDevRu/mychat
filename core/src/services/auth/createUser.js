@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
 const { Chat } =  require('../../models/chat');
-const { Message } = require('../../models/message');
+const { Message, MESSAGE_TYPES } = require('../../models/message');
 const { withTransaction } = require('../../utils/withTransaction');
 
 async function createUser({ username }, { session } = {}) {
+    const now = Date.now();
+
     const user = new User({
         username: username,
     });
@@ -22,16 +24,19 @@ async function createUser({ username }, { session } = {}) {
     user.token = token;
     await user.save();
 
-    await Chat.create([{
+    const chat = new Chat({
         name: username,
-        participants: [{_id: user._id}],
-        messages: [{
-            author: user._id,
-            createdAt: Date.now(),
-            text: '',
-            type: MESSAGE_TYPES.JOIN_CHAT,
-        }]
-    }], { session });
+        participants: [{ _id: user._id }]
+    });
+
+    await chat.save();
+
+    await Message.create({
+        chat: chat._id,
+        author: user._id,
+        createdAt: now,
+        type: MESSAGE_TYPES.DEFAULT,
+    });
 
     return {
         username: username,

@@ -37,4 +37,3 @@ schema.methods.toShortDto = function toShortDto() {
 }
 
 exports.Chat = mongoose.model('Chat', schema);
-exports.MESSAGE_TYPES = MESSAGE_TYPES;
