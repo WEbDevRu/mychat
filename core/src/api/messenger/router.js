@@ -6,27 +6,18 @@ const { withUser } = require('../../middelwares/withUser');
 const schemeValidator = require('./scheme.validator');
 
 router.get(
-    '/chat/:chatId',
+    '/',
     withUser(),
     withAuthorization(),
-    schemeValidator.getChatInfo,
-    controller.getChatInfo,
-)
-
-router.put(
-    '/chat/:chatId/join',
-    withUser(),
-    withAuthorization(),
-    schemeValidator.putChatJoin,
-    controller.putChatJoin,
+    controller.getChats,
 );
 
 router.get(
-    '/chat/history/:chatId',
+    '/chats',
     withUser(),
     withAuthorization(),
-    schemeValidator.getChatHistory,
-    controller.getChatHistory,
+    schemeValidator.getChatsList,
+    controller.getChatsList,
 )
 
 module.exports = router;

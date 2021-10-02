@@ -69,7 +69,7 @@ export const MessengerProvider = (props) => {
     useEffect(() => {
         socketRef.current.on('chat/NEW_MESSAGE_POSTED', (data) => {
             setCurrentChatHistory((h) => ({
-                items: h.items.concat(data.newMessage),
+                items: h.items.concat(data.message),
             }));
         });
     }, []);
