@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    message: {
+    text: {
         type: String,
     },
     type: {
@@ -42,7 +42,7 @@ schema.methods.toDto = function toDto() {
         chat: this.chat,
         author: toNestedDto(this.author),
         createdAt: this.createdAt,
-        message: this.message,
+        text: this.text,
         type: this.type,
     };
 };

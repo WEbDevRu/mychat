@@ -36,7 +36,7 @@ async function createUser({ username }, { session } = {}) {
         chat: chat._id,
         author: user._id,
         createdAt: now,
-        type: MESSAGE_TYPES.DEFAULT,
+        type: MESSAGE_TYPES.JOIN_CHAT,
     });
 
     return {

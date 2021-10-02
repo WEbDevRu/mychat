@@ -52,11 +52,11 @@ class socketServer {
     /**
      * @param {String} roomId
      * @param {String} action
-     * @param {Object} message
+     * @param {Object} data
      */
 
-    sendToRoom(roomId, action, message) {
-        this.io.to(roomId).emit(action, { message })
+    sendToRoom(roomId, action, data) {
+        this.io.to(roomId).emit(action, { ...data })
     }
 }
 

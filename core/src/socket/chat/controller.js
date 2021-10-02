@@ -8,7 +8,7 @@ exports.enterChat = wrapAsyncMiddleware( async(req, res) => {
 });
 
 exports.sendNewMessage = wrapAsyncMiddleware(async(req, res) => {
-    await sendNewMessage({ data: req.data })
+    await sendNewMessage({ senderId: req.data.user._id, data: req.data })
 });
 
 exports.leaveChat = wrapAsyncMiddleware(async(req, res) => {

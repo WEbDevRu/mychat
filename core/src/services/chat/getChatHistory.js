@@ -1,12 +1,13 @@
-const { Chat } = require('../../models/chat');
+const { Message } = require('../../models/message');
 const { withTransaction } = require('../../utils/withTransaction');
 async function getChatHistory({ chatId }, { session } = {}) {
 
-    const result = await Chat.findOne({
-        _id: chatId,
-    }).populate('messages.author').session(session);
+    const result = await Message.find({
+        chat: chatId
+    }).populate('author').session(session);
+
     return {
-        items: result.toMessagesDto().items,
+        items: result.map((r) => r.toDto()),
     }
 }
 
