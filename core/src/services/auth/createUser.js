@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
-const { Chat, MESSAGE_TYPES } =  require('../../models/chat');
+const { Chat } =  require('../../models/chat');
+const { Message } = require('../../models/message');
 const { withTransaction } = require('../../utils/withTransaction');
-require('dotenv').config();
 
 async function createUser({ username }, { session } = {}) {
     const user = new User({

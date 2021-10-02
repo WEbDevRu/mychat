@@ -2,7 +2,7 @@ import * as axios from 'axios';
 import config from '../../config';
 
 const axiosInstance = axios.create({
-    baseURL: `${config.backendURL}/api`,
+    baseURL: `${config.backendURL}/api/v1`,
 });
 
 export const messengerAPI = {
