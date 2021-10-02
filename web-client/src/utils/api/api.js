@@ -17,17 +17,17 @@ export const messengerAPI = {
             .catch((err) => (err));
     },
     getChatInfo(chatId) {
-        return axiosInstance.get(`/messenger/chat/${chatId}`, { withCredentials: true })
+        return axiosInstance.get(`/chat/chat/${chatId}`, { withCredentials: true })
             .then((res) => (res))
             .catch((err) => (err));
     },
     getChatHistory(chatId) {
-        return axiosInstance.get(`/messenger/chat/history/${chatId}`, { withCredentials: true })
+        return axiosInstance.get(`/chat/chat/history/${chatId}`, { withCredentials: true })
             .then((res) => (res))
             .catch((err) => (err));
     },
     joinUserToChat(chatId) {
-        return axiosInstance.put(`/messenger/chat/${chatId}/join`, '', { withCredentials: true })
+        return axiosInstance.put(`/chat/chat/${chatId}/join`, '', { withCredentials: true })
             .then((res) => (res))
             .catch((err) => (err));
     },

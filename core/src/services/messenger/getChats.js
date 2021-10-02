@@ -3,7 +3,7 @@ const { withTransaction } = require('../../utils/withTransaction');
 async function getChats({ userId }, { session } = {}) {
     const result = await Chat.find({
         'participants.': userId,
-    }).populate('messages.author').session(session);
+    }).session(session);
     return {
         items: result.map((r) => r.toShortDto()),
     }

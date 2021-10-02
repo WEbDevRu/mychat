@@ -3,6 +3,7 @@ const { User } = require('../../models/user');
 const { Chat } =  require('../../models/chat');
 const { Message, MESSAGE_TYPES } = require('../../models/message');
 const { withTransaction } = require('../../utils/withTransaction');
+require('dotenv').config();
 
 async function createUser({ username }, { session } = {}) {
     const now = Date.now();
