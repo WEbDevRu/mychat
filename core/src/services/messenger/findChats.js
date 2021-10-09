@@ -1,33 +1,23 @@
-const { ChatParticipant } = require('../../models/chatParticipant');
+const { Chat } = require('../../models/chat');
 const { withTransaction } = require('../../utils/withTransaction');
-async function getChats({ userId }, { session } = {}) {
-    const aggregation = ChatParticipant.aggregate([
+
+async function findChats({ searchString },{ session } = {}) {
+
+    const escapeRegex = (text) =>{
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    };
+    const nameRegex = new RegExp(escapeRegex(searchString), 'gi');
+
+    const aggregation = Chat.aggregate([
         {
             $match: {
-                user: userId
-            }
-        }, {
-                $lookup: {
-                    from: 'chats',
-                    localField: 'chat',
-                    foreignField: '_id',
-                    as: 'chatData'
-                }
-            }, {
-            $project: {
-                _id: 1,
-                chat: 1,
-                chatName: {
-                    $arrayElemAt: [
-                        '$chatData.name', 0
-                    ]
-                }
+                name: nameRegex
             }
         }, {
             $lookup: {
                 from: 'messages',
                 let: {
-                    'chatId': '$chat'
+                    'chatId': '$_id'
                 },
                 pipeline: [
                     {
@@ -51,8 +41,8 @@ async function getChats({ userId }, { session } = {}) {
         }, {
             $project: {
                 _id: 0,
-                id: '$chat',
-                name: '$chatName',
+                id: '$_id',
+                name: 1,
                 lastMessage: {
                     $arrayElemAt: [
                         '$lastMessage', 0
@@ -99,9 +89,9 @@ async function getChats({ userId }, { session } = {}) {
                 }
             }
         }
-        ]).session(session);
+    ]).session(session);
 
-    const result = await ChatParticipant.aggregatePaginate(aggregation);
+    const result = await Chat.aggregatePaginate(aggregation);
 
     return {
         items: result.docs,
@@ -110,5 +100,5 @@ async function getChats({ userId }, { session } = {}) {
     }
 }
 
-exports.getChats = getChats;
-exports.getChatsWT = withTransaction(getChats);
+exports.findChats = findChats;
+exports.findChats = withTransaction(findChats);

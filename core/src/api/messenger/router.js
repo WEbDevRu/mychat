@@ -17,7 +17,7 @@ router.get(
     withUser(),
     withAuthorization(),
     schemeValidator.getChatsList,
-    controller.getChatsList,
-)
+    controller.findChats,
+);
 
 module.exports = router;
