@@ -6,6 +6,10 @@ const schema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        color: {
+            type: Number,
+            required: true,
+        },
         token: {
             type: String,
             required: true,
@@ -21,6 +25,7 @@ schema.methods.toDto = function toDto() {
     return {
         id: this._id,
         username: this.username,
+        color: this.color,
     };
 };
 exports.User = mongoose.model('User', schema);
