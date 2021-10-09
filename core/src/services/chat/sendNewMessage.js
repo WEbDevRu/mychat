@@ -1,7 +1,7 @@
 const socket = require('../../utils/socket/socketEngine');
 const { User } = require('../../models/user');
 const { Message, MESSAGE_TYPES } = require('../../models/message');
-const SOCKET_ACTIONS = require('../../const/routes/socketActions');
+const { CHAT__V1_NEW_MESSAGE_POSTED } = require('../../const/socket/EVENTS');
 
 async function sendNewMessage({ senderId, data }, { session } = {}) {
     const chatId = data.chatId
@@ -30,7 +30,7 @@ async function sendNewMessage({ senderId, data }, { session } = {}) {
        type: MESSAGE_TYPES.DEFAULT,
     });
 
-    socket.sendToRoom( data.chatId, SOCKET_ACTIONS.NEW_MESSAGE, { message: newMessage })
+    socket.sendToRoom( data.chatId, CHAT__V1_NEW_MESSAGE_POSTED, { message: newMessage })
 }
 
 exports.sendNewMessage = sendNewMessage;

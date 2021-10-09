@@ -27,11 +27,11 @@ const ShortChat = (props) => {
                     <p className={styles.name}>
                         {name}
                     </p>
-                    {/* <p className={styles.time}>
+                    <p className={styles.time}>
                         {format(new Date(lastMessage.createdAt), 'p')}
-                    </p> */}
+                    </p>
                 </div>
-                {/* <div className={styles.subTitle}>
+                <div className={styles.subTitle}>
                     <p className={styles.messageText}>
                         <span className={styles.messageAuthor}>
                             {lastMessage.author.username}
@@ -39,7 +39,7 @@ const ShortChat = (props) => {
                         {lastMessage.type === MESSAGE_TYPES.JOIN_CHAT && ' join the chat'}
                         {lastMessage.type === MESSAGE_TYPES.DEFAULT && ` ${ lastMessage.text}`}
                     </p>
-                </div> */}
+                </div>
             </div>
         </NavLink>
 

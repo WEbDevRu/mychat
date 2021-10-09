@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 const { toNestedDto } = require('../utils/toNestedDto');
 const { User } = require('./user');
 
@@ -34,6 +36,9 @@ schema.methods.toShortDto = function toShortDto() {
         id: this._id,
         name: this.name,
     }
-}
+};
+
+schema.plugin(mongoosePaginate);
+schema.plugin(mongooseAggregatePaginate);
 
 exports.Chat = mongoose.model('Chat', schema);
