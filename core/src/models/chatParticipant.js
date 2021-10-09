@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 const { toNestedDto } = require('../utils/toNestedDto');
 const { User } = require('./user');
 const { Chat } = require('./chat');
@@ -38,6 +40,9 @@ schema.methods.toDto = function toDto() {
         type: this.type,
     };
 };
+
+schema.plugin(mongoosePaginate);
+schema.plugin(mongooseAggregatePaginate);
 
 exports.ChatParticipant = mongoose.model('ChatParticipant', schema);
 exports.PARTICIPANT_TYPES = PARTICIPANT_TYPES;

@@ -11,7 +11,7 @@ router.get(
     withAuthorization(),
     schemeValidator.getChatInfo,
     controller.getChatInfo,
-)
+);
 
 router.put(
     '/chat/:chatId/join',
@@ -27,6 +27,6 @@ router.get(
     withAuthorization(),
     schemeValidator.getChatHistory,
     controller.getChatHistory,
-)
+);
 
 module.exports = router;
