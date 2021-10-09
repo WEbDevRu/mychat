@@ -4,20 +4,15 @@ import { Chat } from './Chat';
 import { SideBar } from './SideBar';
 import { useMessenger } from '../../context/MessengerContext';
 import { useAuth } from '../../context/AuthContext';
+import { ChatProvider } from '../../context/ChatContext';
 
 const Messenger = (props) => {
     const {
         onGetChats,
         chats,
-        onGetChatInfo,
-        currentChatInfo,
-        onGetChatHistory,
-        currentChatHistory,
         onGetSearchChats,
-        onSendMessage,
         sidebarState,
         setSideBarState,
-        onJoinUserToChat,
     } = useMessenger();
 
     const {
@@ -40,16 +35,14 @@ const Messenger = (props) => {
                 setSideBarState={setSideBarState}
                 me={me}
             />
-            <Chat
-                onGetChatInfo={onGetChatInfo}
-                currentChatInfo={currentChatInfo}
-                onGetChatHistory={onGetChatHistory}
-                currentChatHistory={currentChatHistory}
+            <ChatProvider
                 socketRef={socketRef}
-                onSendMessage={onSendMessage}
-                me={me}
-                onJoinUserToChat={onJoinUserToChat}
-            />
+            >
+                <Chat
+                    socketRef={socketRef}
+                    me={me}
+                />
+            </ChatProvider>
         </div>
     );
 };
