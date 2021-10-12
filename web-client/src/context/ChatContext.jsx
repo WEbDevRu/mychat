@@ -9,6 +9,7 @@ import httpStatus from 'http-status';
 import { messengerAPI } from '../utils/api/api';
 import { getCookie } from '../utils/auth/getCookie';
 import { NEW_MESSAGE_POSTED, POST_NEW_MESSAGE } from '../const/socket/EVENTS';
+import { useSocket } from './SocketContext';
 
 const ChatContext = createContext({});
 export const useChat = () => useContext(ChatContext);
@@ -16,8 +17,10 @@ export const useChat = () => useContext(ChatContext);
 export const ChatProvider = (props) => {
     const {
         children,
-        socketRef,
     } = props;
+
+    const socket = useSocket();
+
     const [currentChatInfo, setCurrentChatInfo] = useState({});
     const [currentChatHistory, setCurrentChatHistory] = useState({});
 
@@ -36,7 +39,7 @@ export const ChatProvider = (props) => {
     };
 
     const onSendMessage = ({ message, chatId }) => {
-        socketRef.current.emit(POST_NEW_MESSAGE, {
+        socket.onEmit(POST_NEW_MESSAGE, {
             chatId,
             message,
             token: getCookie('AUTHORIZATION'),
@@ -51,12 +54,26 @@ export const ChatProvider = (props) => {
     };
 
     useEffect(() => {
-        socketRef.current.on(NEW_MESSAGE_POSTED, (data) => {
+        socket.onSubscribe(NEW_MESSAGE_POSTED, (data) => {
             setCurrentChatHistory((h) => ({
                 items: h.items.concat(data.message),
             }));
         });
     }, []);
+
+    const onChatEnter = ({ chatId }) => {
+        socket.onEmit('chat/ENTER', {
+            chatId,
+            token: getCookie('AUTHORIZATION'),
+        });
+    };
+
+    const onChatLeave = ({ chatId }) => {
+        socket.onEmit('chat/LEAVE', {
+            chatId,
+            token: getCookie('AUTHORIZATION'),
+        });
+    };
 
     return (
         <ChatContext.Provider
@@ -67,6 +84,8 @@ export const ChatProvider = (props) => {
                 currentChatHistory,
                 onSendMessage,
                 onJoinUserToChat,
+                onChatEnter,
+                onChatLeave,
             }}
         >
             {children}
@@ -76,10 +95,8 @@ export const ChatProvider = (props) => {
 
 ChatProvider.propTypes = {
     children: PropTypes.any,
-    socketRef: PropTypes.object,
 };
 
 ChatProvider.defaultProps = {
     children: null,
-    socketRef: {},
 };

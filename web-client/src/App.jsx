@@ -2,7 +2,6 @@ import React, {
     useEffect,
     useRef,
 } from 'react';
-import socketIOClient from 'socket.io-client';
 import './styles/styles.scss';
 import { Route } from 'react-router-dom';
 import { Messenger } from './components/Messenger';
@@ -13,19 +12,19 @@ import { VideoConf } from './components/VideoConf';
 import { MessengerProvider } from './context/MessengerContext';
 import { VideoConfProvider } from './context/VideoConfContext';
 import config from './config/index';
+import { useSocket } from './context/SocketContext';
 
 const App = () => {
     const {
         isInitialized,
     } = useApp();
 
+    const socket = useSocket();
+
     const socketRef = useRef();
 
     useEffect(() => {
-        socketRef.current = socketIOClient(config.socketServerURL);
-        socketRef.current.emit('auth/AUTH', {
-            token: 'egwtrh',
-        });
+        socket.onConnect({ socketURL: config.socketServerURL });
     }, []);
 
     return (

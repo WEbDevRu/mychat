@@ -57,10 +57,8 @@ export const MessengerProvider = (props) => {
 
 MessengerProvider.propTypes = {
     children: PropTypes.any,
-    socketRef: PropTypes.object,
 };
 
 MessengerProvider.defaultProps = {
     children: null,
-    socketRef: {},
 };
