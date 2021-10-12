@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react';
+import React, {
+    useEffect,
+    useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Route, useParams } from 'react-router-dom';
 import styles from './Chat.module.scss';
@@ -9,7 +12,6 @@ import { useChat } from '../../../context/ChatContext';
 
 const Chat = (props) => {
     const {
-        socketRef,
         me,
     } = props;
 
@@ -20,14 +22,23 @@ const Chat = (props) => {
         currentChatHistory,
         onSendMessage,
         onJoinUserToChat,
+        onChatEnter,
+        onChatLeave,
     } = useChat();
     const { chatId } = useParams();
+    const prevChatId = useRef();
 
     useEffect(() => {
+        if (prevChatId.current) {
+            onChatLeave({ chatId: prevChatId.current });
+        }
         if (chatId) {
             onGetChatInfo(chatId);
+            onChatEnter({ chatId });
+            prevChatId.current = chatId;
         }
     }, [chatId]);
+
     let isJoinedToChat = false;
 
     if (currentChatInfo?.participants?.find(((i) => i.participant.id === me.id))) {
@@ -41,7 +52,6 @@ const Chat = (props) => {
                     <>
                         <Navbar
                             currentChatInfo={currentChatInfo}
-                            socketRef={socketRef}
                             chatId={chatId}
                             me={me}
                             isJoinedToChat={isJoinedToChat}
@@ -71,12 +81,10 @@ const Chat = (props) => {
 };
 
 Chat.propTypes = {
-    socketRef: PropTypes.object,
     me: PropTypes.object,
 };
 
 Chat.defaultProps = {
-    socketRef: {},
     me: {},
 };
 

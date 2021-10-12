@@ -20,6 +20,7 @@ class socketServer {
     addRoute({ path, cb }) {
         this.io.on("connection", (currentSocket) => {
             this.socket = currentSocket;
+            console.log('socket Connected', currentSocket);
             currentSocket.on(path, (data) => cb(data))
         });
     }

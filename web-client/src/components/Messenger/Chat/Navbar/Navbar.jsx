@@ -4,23 +4,15 @@ import { Avatar, Button } from '@material-ui/core';
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
-import { getCookie } from '../../../../utils/auth/getCookie';
 
 const Navbar = (props) => {
     const {
         currentChatInfo,
-        socketRef,
         chatId,
         isJoinedToChat,
         onJoinUserToChat,
     } = props;
 
-    useEffect(() => {
-        socketRef.current.emit('chat/ENTER', { chatId, token: getCookie('AUTHORIZATION') });
-        return () => {
-            socketRef.current.emit('chat/LEAVE', { chatId, token: getCookie('AUTHORIZATION') });
-        };
-    }, [chatId]);
     return (
         <div className={styles.content}>
             <div className={styles.contentRow}>
@@ -58,7 +50,6 @@ const Navbar = (props) => {
 
 Navbar.propTypes = {
     currentChatInfo: PropTypes.object,
-    socketRef: PropTypes.object,
     chatId: PropTypes.string,
     isJoinedToChat: PropTypes.bool,
     onJoinUserToChat: PropTypes.func,
@@ -66,7 +57,6 @@ Navbar.propTypes = {
 
 Navbar.defaultProps = {
     currentChatInfo: {},
-    socketRef: {},
     chatId: '',
     isJoinedToChat: false,
     onJoinUserToChat: (f) => f,
