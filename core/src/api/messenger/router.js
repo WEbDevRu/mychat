@@ -20,4 +20,12 @@ router.get(
     controller.findChats,
 );
 
+router.post(
+    '/group',
+    withUser(),
+    withAuthorization(),
+    schemeValidator.createGroup,
+    controller.createGroup,
+)
+
 module.exports = router;

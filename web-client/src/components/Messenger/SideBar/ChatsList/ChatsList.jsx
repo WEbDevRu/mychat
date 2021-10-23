@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import styles from './ChatsList.module.scss';
 import { ShortChat } from './ShortChat';
+import { CreateButton } from '../CreateButton';
 
 const ChatsList = (props) => {
     const { chats } = props;
@@ -26,6 +27,7 @@ const ChatsList = (props) => {
                 </ul>
 
             </Scrollbars>
+            <CreateButton />
         </div>
     );
 };

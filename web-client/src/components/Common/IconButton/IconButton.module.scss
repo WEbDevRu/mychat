@@ -1,0 +1,11 @@
+@import "../../../styles/rem";
+
+.cont {
+  width: rem(54px);
+  height: rem(54px);
+  background-color: white !important;
+  box-shadow: var(--z-depth-1-box-shadow);
+  &.blueColor {
+    background-color: var(--primary-color) !important;
+  }
+}
