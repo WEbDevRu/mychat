@@ -13,6 +13,8 @@ const Messenger = (props) => {
         onGetSearchChats,
         sidebarState,
         setSideBarState,
+        sidebarBlock,
+        setSidebarBlock,
     } = useMessenger();
 
     const {
@@ -34,6 +36,8 @@ const Messenger = (props) => {
                 sidebarState={sidebarState}
                 setSideBarState={setSideBarState}
                 me={me}
+                sidebarBlock={sidebarBlock}
+                setSidebarBlock={setSidebarBlock}
             />
             <ChatProvider
                 socketRef={socketRef}

@@ -1,5 +1,8 @@
+@import "../../../styles/rem";
 
 .root {
   width: 100%;
   box-shadow: var(--z-depth-3-box-shadow) !important;
+  border-radius: rem(8px) !important;
+  //transform: translateY(-15px) !important;
 }

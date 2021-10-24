@@ -4,7 +4,7 @@ import { Avatar } from '@material-ui/core';
 import format from 'date-fns/format';
 import { NavLink } from 'react-router-dom';
 import styles from './ShortChat.module.scss';
-import { MESSAGE_TYPES } from '../../../../../const/messenger/MESSAGE_TYPES';
+import { MESSAGE_TYPES } from '../../../../../../const/messenger/MESSAGE_TYPES';
 
 const ShortChat = (props) => {
     const {

@@ -1,8 +1,12 @@
-import React from 'react';
-import { Menu } from '@material-ui/core';
+import React, { useEffect, useRef } from 'react';
+import {
+    ClickAwayListener,
+    Menu,
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import styles from './DropDown.module.scss';
+import { emptyFunc } from '../../../utils/function/emptyFunc';
 
 const DropDown = (props) => {
     const {
@@ -12,6 +16,7 @@ const DropDown = (props) => {
         anchorEl,
         anchorOrigin,
         transformOrigin,
+        onClose,
     } = props;
 
     return (
@@ -24,7 +29,7 @@ const DropDown = (props) => {
                 paper: styles.root,
                 root: className,
             }}
-            hideBackdrop
+            onClose={onClose}
             disableScrollLock={false}
             anchorEl={anchorEl}
         >
@@ -34,16 +39,17 @@ const DropDown = (props) => {
 };
 
 DropDown.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.any,
     open: PropTypes.bool,
     className: PropTypes.string,
     anchorEl: PropTypes.object,
     anchorOrigin: PropTypes.object,
     transformOrigin: PropTypes.object,
+    onClose: PropTypes.func,
 };
 
 DropDown.defaultProps = {
-    children: {},
+    children: '',
     open: false,
     className: '',
     anchorEl: {},
@@ -55,6 +61,7 @@ DropDown.defaultProps = {
         vertical: 'bottom',
         horizontal: 'right',
     },
+    onClose: emptyFunc,
 };
 
 export default React.memo(DropDown);

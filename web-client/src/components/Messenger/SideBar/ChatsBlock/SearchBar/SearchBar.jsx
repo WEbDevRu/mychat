@@ -7,8 +7,8 @@ import { Input, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from './SearchBar.module.scss';
-import { SearchIcon } from '../../../Common/Icons/SearchIcon';
-import { SIDEBAR_STATES } from '../../../../const/messenger/SIDEBAR_STATES';
+import { SearchIcon } from '../../../../Common/Icons/SearchIcon';
+import { SIDEBAR_STATES } from '../../../../../const/messenger/SIDEBAR_STATES';
 
 const SearchBar = (props) => {
     const [searchInput, setSearchInput] = useState();

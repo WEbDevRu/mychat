@@ -1,7 +1,7 @@
-@import "../../../../styles/rem";
+@import "../../../../../styles/rem";
 
 .content {
-  height: 100%;
+  height: calc(100% - 61px);
   width: 100%;
   position: relative;
 }
