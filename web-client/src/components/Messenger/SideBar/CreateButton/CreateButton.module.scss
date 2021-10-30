@@ -1,0 +1,19 @@
+@import '../../../../styles/rem';
+
+.cont {
+  position: absolute;
+  bottom: rem(20px);
+  right: rem(20px);
+}
+
+.createIcon {
+  color: var(--badge-text-color);
+}
+
+.menu {
+  width: rem(265px);
+}
+
+.buttonCont {
+  padding-top: rem(15px);
+}

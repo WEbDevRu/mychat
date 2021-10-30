@@ -1,0 +1,26 @@
+@import '../../../styles/rem';
+
+.root {
+  padding: rem(10px 0) !important;
+}
+
+.iconCont {
+  width: rem(58px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: rem(28px);
+  color: var(--secondary-text-color);
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: rem(0 15px 0 15px);
+}
+
+.text {
+  font-size: rem(16px);
+  padding-top: rem(4px)
+}

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import httpStatus from 'http-status';
 import { messengerAPI } from '../utils/api/api';
 import { SIDEBAR_STATES } from '../const/messenger/SIDEBAR_STATES';
+import { SIDEBAR_BLOCKS } from '../const/messenger/SIDEBAR_BLOCKS';
 
 const MessengerContext = createContext({});
 export const useMessenger = () => useContext(MessengerContext);
@@ -18,6 +19,7 @@ export const MessengerProvider = (props) => {
     } = props;
     const [chats, setChats] = useState({});
     const [sidebarState, setSideBarState] = useState(SIDEBAR_STATES.CHATS);
+    const [sidebarBlock, setSidebarBlock] = useState(SIDEBAR_BLOCKS.DEFAULT);
 
     const onGetChats = async () => {
         const result = await messengerAPI.getChats();
@@ -48,6 +50,8 @@ export const MessengerProvider = (props) => {
                 onGetSearchChats,
                 sidebarState,
                 setSideBarState,
+                sidebarBlock,
+                setSidebarBlock,
             }}
         >
             {children}

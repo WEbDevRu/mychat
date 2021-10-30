@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import styles from './Registration.module.scss';
 import { useAuth } from '../../context/AuthContext';
 
-const Registration = (props) => {
+const Registration = () => {
     const {
         setValue,
         register,
@@ -83,14 +83,6 @@ const Registration = (props) => {
             </Card>
         </div>
     );
-};
-
-Registration.propTypes = {
-
-};
-
-Registration.defaultProps = {
-
 };
 
 export default React.memo(Registration);

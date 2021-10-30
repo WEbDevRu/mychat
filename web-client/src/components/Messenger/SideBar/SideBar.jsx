@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cnb } from 'cnbuilder';
 import styles from './SideBar.module.scss';
-import { SearchBar } from './SearchBar';
-import { ChatsList } from './ChatsList';
+import { ChatsBlock } from './ChatsBlock';
+import { emptyFunc } from '../../../utils/function/emptyFunc';
+import { SIDEBAR_BLOCKS } from '../../../const/messenger/SIDEBAR_BLOCKS';
 
 const SideBar = (props) => {
     const {
@@ -10,18 +12,25 @@ const SideBar = (props) => {
         onGetSearchChats,
         sidebarState,
         setSideBarState,
+        sidebarBlock,
+        setSidebarBlock,
     } = props;
+
 
     return (
         <div className={styles.content}>
-            <SearchBar
-                onGetSearchChats={onGetSearchChats}
-                sidebarState={sidebarState}
-                setSideBarState={setSideBarState}
-            />
-            <ChatsList
-                chats={chats}
-            />
+            <div className={cnb(styles.collapseCont, {
+                [styles.isCollapse]: sidebarBlock === SIDEBAR_BLOCKS.DEFAULT,
+            })}
+            >
+                <ChatsBlock
+                    onGetSearchChats={onGetSearchChats}
+                    sidebarState={sidebarState}
+                    setSideBarState={setSideBarState}
+                    chats={chats}
+                    setSidebarBlock={setSidebarBlock}
+                />
+            </div>
         </div>
     );
 };
@@ -31,6 +40,8 @@ SideBar.propTypes = {
     onGetSearchChats: PropTypes.func,
     sidebarState: PropTypes.string,
     setSideBarState: PropTypes.func,
+    sidebarBlock: PropTypes.string,
+    setSidebarBlock: PropTypes.func,
 };
 
 SideBar.defaultProps = {
@@ -38,6 +49,8 @@ SideBar.defaultProps = {
     onGetSearchChats: (f) => f,
     sidebarState: '',
     setSideBarState: (f) => f,
+    sidebarBlock: SIDEBAR_BLOCKS.CREATE_GROUP,
+    setSidebarBlock: emptyFunc,
 };
 
 export default React.memo(SideBar);
