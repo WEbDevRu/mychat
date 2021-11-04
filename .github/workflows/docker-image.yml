@@ -13,7 +13,7 @@ jobs:
     runs-on: self-hosted
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: webdevru/mychat
 
     steps:
     - name: Checkout repository
