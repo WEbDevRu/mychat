@@ -27,7 +27,11 @@ jobs:
       run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build
     - name: Login to github repository
       run: docker login https://docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
-    - name: Tag the Docker image
+    - name: Tag core image
       run: docker tag mychat_core docker.pkg.github.com/webdevru/mychat/mychat_core:latest
-    - name: Deploy Docker image
+    - name: Push core image
       run: docker push docker.pkg.github.com/webdevru/mychat/mychat_core
+    - name: Tag web-client image
+      run: docker tag mychat_web-client docker.pkg.github.com/webdevru/mychat/mychat_web-client:latest
+    - name: Push web-client image
+      run: docker push docker.pkg.github.com/webdevru/mychat/mychat_web-client
