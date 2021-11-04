@@ -29,4 +29,4 @@ jobs:
     - name: Tag the Docker image
       run: docker tag mychat_core docker.pkg.github.com/webdevru/mychat/mychat_core:latest
     - name: Deploy Docker image
-      run: docker push docker.pkg.github.com/WEbDevRu/mychat/mychat_core
+      run: docker push docker.pkg.github.com/webdevru/mychat/mychat_core
