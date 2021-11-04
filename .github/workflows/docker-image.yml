@@ -12,12 +12,22 @@ jobs:
 
     runs-on: self-hosted
     env:
-      COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
-      TOKEN_SECRET: ${{ secrets.TOKEN_TOKEN }}
-      CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
-      MONGO_URL: ${{ secrets.MONGO_URL }}
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
 
     steps:
+    - name: Checkout repository
     - uses: actions/checkout@v2
+
+    - name: Login in to the Container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build
+    - name: Tag the Docker image
+      run: docker tag mychat_core docker.pkg.github.com/WEbDevRu/mychat/mychat_core:latest
+    - name: Deploy Docker image
+      run: docker push docker.pkg.github.com/WEbDevRu/mychat/mychat_core

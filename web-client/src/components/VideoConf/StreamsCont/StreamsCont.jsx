@@ -4,6 +4,7 @@ import { cnb } from 'cnbuilder';
 import { Typography } from '@material-ui/core';
 import styles from './StreamsCont.module.scss';
 import useWebRTC from '../../../utils/useWebRTC';
+import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
 
 const StreamsCont = (props) => {
     const {
@@ -11,6 +12,11 @@ const StreamsCont = (props) => {
         socketRef,
         chatId,
     } = props;
+
+    const webRTC = new WebRTCConnection({
+        roomId: chatId,
+        streamConstraints,
+    });
 
     const { clients, provideMediaRef } = useWebRTC({
         roomId: chatId,
