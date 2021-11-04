@@ -18,13 +18,12 @@ jobs:
     steps:
     - name: Checkout repository
     - uses: actions/checkout@v2
-
     - name: Login in to the Container registry
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build
     - name: Tag the Docker image
