@@ -14,7 +14,6 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: webdevru/mychat
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
