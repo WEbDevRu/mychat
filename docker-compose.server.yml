@@ -44,6 +44,12 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD
       - ME_CONFIG_SITE_BASEURL=/db/
 
+  redis:
+    image: redis:6.2.1-alpine
+    restart: always
+    command: redis-server
+    ports:
+      - 57012:6379
 networks:
   default:
     external:

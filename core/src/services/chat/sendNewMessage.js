@@ -29,7 +29,7 @@ async function sendNewMessage({ senderId, data }, { session } = {}) {
        text: message,
        type: MESSAGE_TYPES.DEFAULT,
     });
-
+    console.log(data.chatId, newMessage)
     socket.sendToRoom( data.chatId, CHAT__V1_NEW_MESSAGE_POSTED, { message: newMessage })
 }
 
