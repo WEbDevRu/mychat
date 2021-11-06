@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
+import { getCookie } from '../utils/auth/getCookie';
 
 const SocketContext = createContext({});
 export const useSocket = () => useContext(SocketContext);
@@ -31,7 +32,14 @@ export const SocketProvider = (props) => {
 
     const onEmit = useCallback((eventPath, message) => {
         if (socketRef.current) {
-            socketRef.current.emit(eventPath, message);
+            socketRef.current.emit(eventPath, {
+                headers: {
+                    authToken: getCookie('AUTHORIZATION'),
+                },
+                data: {
+                    ...message,
+                },
+            });
         }
     }, []);
 

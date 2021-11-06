@@ -42,7 +42,6 @@ export const ChatProvider = (props) => {
         socket.onEmit(POST_NEW_MESSAGE, {
             chatId,
             message,
-            token: getCookie('AUTHORIZATION'),
         });
     };
 
@@ -63,15 +62,13 @@ export const ChatProvider = (props) => {
 
     const onChatEnter = ({ chatId }) => {
         socket.onEmit('chat/ENTER', {
-            chatId,
-            token: getCookie('AUTHORIZATION'),
+            chatId
         });
     };
 
     const onChatLeave = ({ chatId }) => {
         socket.onEmit('chat/LEAVE', {
-            chatId,
-            token: getCookie('AUTHORIZATION'),
+            chatId
         });
     };
 
