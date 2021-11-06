@@ -6,7 +6,7 @@ const routes =  require('./socket/index');
 
 async function start() {
     await connectMongoose();
-    //await redisConnector.connect();
+    await redisConnector.connect();
 
     const server = app.listen(3001, () => {
         console.log(`MyChat core started on port ${3001}`);
