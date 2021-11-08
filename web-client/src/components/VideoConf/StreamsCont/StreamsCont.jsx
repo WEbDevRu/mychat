@@ -6,7 +6,6 @@ import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
 const StreamsCont = (props) => {
     const {
         streamConstraints,
-        socketRef,
         chatId,
     } = props;
 
@@ -16,6 +15,10 @@ const StreamsCont = (props) => {
     });
 
     webRTC.joinRoom();
+
+    webRTC.onJoinRoom((data) => {
+        console.log(data);
+    });
 
     return (
         <div className={styles.content} />

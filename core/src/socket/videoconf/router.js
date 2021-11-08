@@ -10,4 +10,11 @@ router.addRoute(
     controller.joinConf,
 );
 
+router.addRoute(
+    'UPDATE_ONLINE_STATUS',
+    withUser(),
+    withAuthorization(),
+    controller.updateOnlineStatus,
+);
+
 module.exports = router;

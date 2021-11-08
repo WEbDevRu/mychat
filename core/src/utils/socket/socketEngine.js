@@ -58,6 +58,10 @@ class socketServer {
     sendToRoom(roomId, action, data) {
         this.io.to(roomId).emit(action, { ...data })
     }
+
+    sendToUser(userId, action, data) {
+        this.io
+    }
 }
 
 module.exports = new socketServer();
