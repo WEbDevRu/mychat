@@ -9,7 +9,8 @@ const VideoConf = () => {
     const {
         streamConstraints,
         setStreamConstraints,
-        socketRef,
+        onJoinChat,
+        chatData,
     } = useVideoConf();
 
     const { chatId } = useParams();
@@ -19,7 +20,8 @@ const VideoConf = () => {
             <StreamsCont
                 streamConstraints={streamConstraints}
                 chatId={chatId}
-                socketRef={socketRef}
+                onJoinChat={onJoinChat}
+                chatData={chatData}
             />
             <ControlBar
                 setStreamConstraints={setStreamConstraints}

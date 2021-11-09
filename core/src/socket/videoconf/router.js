@@ -11,7 +11,7 @@ router.addRoute(
 );
 
 router.addRoute(
-    'UPDATE_ONLINE_STATUS',
+    'V1_UPDATE_ONLINE_STATUS',
     withUser(),
     withAuthorization(),
     controller.updateOnlineStatus,

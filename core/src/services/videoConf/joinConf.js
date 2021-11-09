@@ -13,9 +13,9 @@ async function joinConf({ roomId, user }, { session } = {}) {
         .hSet(memberId, toRedisObject({
             username: user.username
         }))
-        .expire(memberId, 10)
+        .expire(memberId, 20)
         .sAdd(videoConfId, user._id.toString())
-        .expire(videoConfId, 10)
+        .expire(videoConfId, 20)
         .exec();
 
     const videoConfData = await redis.client.hGetAll(`videoConfMember`);
