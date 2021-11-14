@@ -17,4 +17,17 @@ router.addRoute(
     controller.updateOnlineStatus,
 );
 
+router.addRoute(
+    'LEAVE',
+    withUser(),
+    withAuthorization(),
+    controller.leaveConf,
+);
+
+router.addRoute(
+    'V1_NEW_SDP_OFFER',
+    withUser(),
+    withAuthorization(),
+    controller.sendSDPOfferToRoom,
+);
 module.exports = router;

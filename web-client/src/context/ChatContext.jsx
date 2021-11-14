@@ -27,7 +27,7 @@ export const ChatProvider = (props) => {
     const onGetChatInfo = async (chatId) => {
         const result = await messengerAPI.getChatInfo(chatId);
         if (result.status === httpStatus.OK) {
-            setCurrentChatInfo(result.data?.chatInfo);
+            setCurrentChatInfo(result.data);
         }
     };
 

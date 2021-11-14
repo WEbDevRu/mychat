@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './StreamsCont.module.scss';
 import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
 import { emptyFunc } from '../../../utils/function/emptyFunc';
+import { useSocket } from '../../../context/SocketContext';
 
 const StreamsCont = (props) => {
     const {
@@ -12,23 +13,23 @@ const StreamsCont = (props) => {
         chatData,
     } = props;
 
-    const webRTC = new WebRTCConnection({
-        roomId: chatId,
-        streamConstraints,
-    });
-
-    webRTC.joinRoom();
-
-    webRTC.onJoinRoom((data) => {
-        console.log('join video  conf', data);
-    });
+    const socket = useSocket();
 
     useEffect(() => {
+        const webRTC = new WebRTCConnection({
+            roomId: chatId,
+            socket,
+        });
+
+        webRTC.joinRoom();
+
+        webRTC.onJoinRoom((data) => {
+            console.log('join video  conf', data);
+        });
         return () => {
-
-        }
-    });
-
+            webRTC.onForceConfLeave();
+        };
+    }, []);
 
     return (
         <div className={styles.content} />

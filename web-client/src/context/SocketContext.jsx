@@ -2,9 +2,7 @@ import React, {
     createContext,
     useCallback,
     useContext,
-    useEffect,
     useRef,
-    useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
@@ -30,6 +28,18 @@ export const SocketProvider = (props) => {
         }
     }, []);
 
+    const onUnSubscribe = useCallback((eventPath, func) => {
+        if (socketRef.current) {
+            socketRef.current.removeListener(eventPath, func);
+        }
+    }, []);
+
+    const onUnSubscribeFromEvent = useCallback((eventPath) => {
+        if (socketRef.current) {
+            socketRef.current.removeAllListeners(eventPath);
+        }
+    }, []);
+
     const onEmit = useCallback((eventPath, message) => {
         if (socketRef.current) {
             socketRef.current.emit(eventPath, {
@@ -49,6 +59,8 @@ export const SocketProvider = (props) => {
                 onConnect,
                 onSubscribe,
                 onEmit,
+                onUnSubscribe,
+                onUnSubscribeFromEvent,
             }}
         >
             {children}
