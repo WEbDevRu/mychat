@@ -109,6 +109,15 @@ class socketServer {
     sendResponseToUser(action, data) {
         this.socket.emit(action, data);
     }
+
+    /**
+     * @param {String} action
+     * @param {String} socketId
+     * @param {Object} data
+     */
+    sendToSocketBySocketId(action, socketId, data) {
+        this.io.to(socketId).emit(action, data);
+    }
 }
 
 module.exports = new socketServer();

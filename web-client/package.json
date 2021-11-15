@@ -26,7 +26,8 @@
     "react-scrollbars-custom": "4.0.25",
     "sass": "1.35.1",
     "socket.io-client": "4.0.1",
-    "web-vitals": "1.1.1"
+    "web-vitals": "1.1.1",
+    "webrtc-adapter": "^8.1.0"
   },
   "scripts": {
     "clean": "rimraf dist",

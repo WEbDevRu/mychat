@@ -7,7 +7,7 @@ const {
     VIDEO_CONF__V1_NEW_PARTICIPANT
 } = require('../../const/socket/EVENTS');
 
-async function joinConf({ roomId, user }, { session } = {}) {
+async function joinConf({ roomId, user, socketId }, { session } = {}) {
     const memberId = `videoConfMember:${roomId}:${user._id}`;
     const videoConfId = `videoConf:${roomId}`;
 
@@ -27,7 +27,8 @@ async function joinConf({ roomId, user }, { session } = {}) {
     socket.joinRoom(videoConfId);
 
     socket.sendResponseToUser(VIDEO_CONF__V1_SUCCESS_JOIN, {
-        participants: participantsData
+        participants: participantsData,
+        socketId,
     });
 
     socket.broadcastToRoom(videoConfId, VIDEO_CONF__V1_NEW_PARTICIPANT, {

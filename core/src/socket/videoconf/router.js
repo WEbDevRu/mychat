@@ -30,4 +30,19 @@ router.addRoute(
     withAuthorization(),
     controller.sendSDPOfferToRoom,
 );
+
+router.addRoute(
+    'V1_SDP_ANSWER',
+    withUser(),
+    withAuthorization(),
+    controller.sendSDPAnswerToUser,
+);
+
+router.addRoute(
+    'V1_ICE_CANDIDATE',
+    withUser(),
+    withAuthorization(),
+    controller.sendICECandidateToUser
+);
+
 module.exports = router;

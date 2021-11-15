@@ -96,7 +96,10 @@ export default function useWebRTC({ roomID, socketRef }) {
             });
 
             if (createOffer) {
-                const offer = await peerConnections.current[peerID].createOffer();
+                const offer = await peerConnections.current[peerID].createOffer({
+                    offerToReceiveAudio: true,
+                    offerToReceiveVideo: true,
+                });
 
                 await peerConnections.current[peerID].setLocalDescription(offer);
 

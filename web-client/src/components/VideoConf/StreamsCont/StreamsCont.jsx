@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './StreamsCont.module.scss';
 import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
@@ -15,10 +15,21 @@ const StreamsCont = (props) => {
 
     const socket = useSocket();
 
+    const localStream = useRef();
+
     useEffect(() => {
         const webRTC = new WebRTCConnection({
             roomId: chatId,
             socket,
+            servers: {
+                iceServers: [{
+                    url: 'stun:stun.l.google.com:19302',
+                }],
+            },
+            mediaConstraints: {
+                video: true,
+                audio: false,
+            },
         });
 
         webRTC.joinRoom();
