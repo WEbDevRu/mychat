@@ -4,6 +4,7 @@ import styles from './VideoConf.module.scss';
 import { ControlBar } from './ControlBar';
 import { StreamsCont } from './StreamsCont';
 import { useVideoConf } from '../../context/VideoConfContext';
+import { useAuth } from '../../context/AuthContext';
 
 const VideoConf = () => {
     const {
@@ -12,6 +13,10 @@ const VideoConf = () => {
         onJoinChat,
         chatData,
     } = useVideoConf();
+
+    const {
+        me,
+    } = useAuth();
 
     const { chatId } = useParams();
 
@@ -22,6 +27,7 @@ const VideoConf = () => {
                 chatId={chatId}
                 onJoinChat={onJoinChat}
                 chatData={chatData}
+                me={me}
             />
             <ControlBar
                 setStreamConstraints={setStreamConstraints}

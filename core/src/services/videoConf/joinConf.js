@@ -22,6 +22,7 @@ async function joinConf({ roomId, user, socketId }, { session } = {}) {
         }))
         .expire(memberId, 20)
         .sAdd(videoConfId.toString(), user._id.toString())
+        .expire(videoConfId.toString(), 20)
         .exec();
 
     socket.joinRoom(videoConfId);

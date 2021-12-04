@@ -6,7 +6,8 @@ async function sendSDPOfferToRoom({
    roomId,
    senderSocketId,
    offer,
-   userId
+   userId,
+   username
 }, { session } = {}) {
    const videoConfId = `videoConf:${roomId}`;
 
@@ -14,6 +15,7 @@ async function sendSDPOfferToRoom({
       offer,
       senderSocketId,
       userId,
+      username
    })
 }
 

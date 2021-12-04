@@ -26,8 +26,6 @@ const Navbar = (props) => {
                         {`members${ currentChatInfo.participants?.length}`}
                     </p>
                 </div>
-
-                {console.log(currentChatInfo)}
                 {!currentChatInfo?.isSubscribed ? (
                     <Button
                         className={styles.joinButton}

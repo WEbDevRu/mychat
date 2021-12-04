@@ -34,6 +34,7 @@ exports.sendSDPOfferToRoom = wrapAsyncMiddleware(async(req) => {
         offer: req.data.offer,
         senderSocketId: req.headers.socket.socketId,
         userId: req.data.user._id,
+        username: req.data.user.username
     })
 });
 
