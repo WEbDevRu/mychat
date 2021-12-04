@@ -1,19 +1,21 @@
-const uniqid = require('uniqid');
-
 class socketRouter {
     constructor() {
     }
     routes = []
     addRoute() {
        const cb = async (data) => {
-           let req = { data }
-           if (req.data.token) {
-               req.cookies = { AUTHORIZATION: data.token }
+           let req = { data };
+           if (req.data.headers.authToken) {
+               req.cookies = { AUTHORIZATION: data.headers.authToken }
            }
 
            const cbArg = arguments;
            let i = 1;
-
+           const formattedReq = {
+               ...req,
+               headers: req.data.headers,
+               data: req.data.data
+           }
            const performMiddleware = async (req) => {
                const nextReq = await cbArg[i](req);
                i++
@@ -21,27 +23,25 @@ class socketRouter {
                   await performMiddleware(nextReq)
                }
            }
-           await performMiddleware(req);
+           await performMiddleware(formattedReq);
        }
 
        this.routes.push({
            action: arguments[0],
            cb,
-           id: uniqid()
        });
     }
-    use(path, routes) {
-
-        this.routes = this.routes.map((r)=> {
-            if (routes.routes.find((useRoute) => useRoute.id === r.id)) {
+    use(path, routes = []) {
+        if (routes.routes) {
+            this.routes = this.routes.concat(routes.routes.map((r)=> {
                 return ({
                     ...r,
                     path: path + '/' + r.action
-                })
-            }
-            return r
-        });
+                });
+            }));
+        }
     }
 }
 
-module.exports = new socketRouter();
+module.exports = socketRouter;
+module.exports.router = new socketRouter();

@@ -39,11 +39,6 @@ const Chat = (props) => {
         }
     }, [chatId]);
 
-    let isJoinedToChat = false;
-
-    if (currentChatInfo?.participants?.find(((i) => i.participant.id === me.id))) {
-        isJoinedToChat = true;
-    }
     return (
         <div className={styles.content}>
             <Route
@@ -54,7 +49,6 @@ const Chat = (props) => {
                             currentChatInfo={currentChatInfo}
                             chatId={chatId}
                             me={me}
-                            isJoinedToChat={isJoinedToChat}
                             onJoinUserToChat={onJoinUserToChat}
                         />
                         <div className={styles.chatCont}>
@@ -64,11 +58,10 @@ const Chat = (props) => {
                                 chatId={chatId}
                                 me={me}
                             />
-                            {isJoinedToChat && (
+                            {currentChatInfo?.isSubscribed && (
                                 <InputBlock
                                     onSendMessage={onSendMessage}
                                     chatId={chatId}
-                                    isJoinedToChat={isJoinedToChat}
                                 />
                             )}
                         </div>

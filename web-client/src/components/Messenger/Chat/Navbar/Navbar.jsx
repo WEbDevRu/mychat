@@ -9,7 +9,6 @@ const Navbar = (props) => {
     const {
         currentChatInfo,
         chatId,
-        isJoinedToChat,
         onJoinUserToChat,
     } = props;
 
@@ -27,7 +26,7 @@ const Navbar = (props) => {
                         {`members${ currentChatInfo.participants?.length}`}
                     </p>
                 </div>
-                {!isJoinedToChat ? (
+                {!currentChatInfo?.isSubscribed ? (
                     <Button
                         className={styles.joinButton}
                         onClick={() => { onJoinUserToChat({ chatId }); }}
@@ -51,14 +50,12 @@ const Navbar = (props) => {
 Navbar.propTypes = {
     currentChatInfo: PropTypes.object,
     chatId: PropTypes.string,
-    isJoinedToChat: PropTypes.bool,
     onJoinUserToChat: PropTypes.func,
 };
 
 Navbar.defaultProps = {
     currentChatInfo: {},
     chatId: '',
-    isJoinedToChat: false,
     onJoinUserToChat: (f) => f,
 };
 

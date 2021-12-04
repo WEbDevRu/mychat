@@ -7,6 +7,7 @@ const { wrapAsyncMiddleware } = require('../../middelwares/wrapAsyncMiddleware')
 exports.getChatInfo = wrapAsyncMiddleware( async(req, res) => {
     const result = await getChatInfo({
         chatId: req.params.chatId,
+        userId: req.data.user._id
     })
     return res.status(httpStatus.OK).json(result);
 })

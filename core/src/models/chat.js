@@ -10,10 +10,10 @@ const schema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        participants: [{
+        creator: {
             type: mongoose.Schema.Types.ObjectId,
             ref: User,
-        }],
+        }
     }, {
         versionKey: false,
         timestamps: true,
@@ -25,9 +25,6 @@ schema.methods.toDto = function toDto() {
     return {
         id: this._id,
         name: this.name,
-        participants: this.participants.map((p)=> ({
-            participant: toNestedDto(p),
-        }))
     };
 };
 

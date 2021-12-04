@@ -1,91 +1,158 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { cnb } from 'cnbuilder';
-import { Typography } from '@material-ui/core';
 import styles from './StreamsCont.module.scss';
-import useWebRTC from '../../../utils/useWebRTC';
 import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
+import { emptyFunc } from '../../../utils/function/emptyFunc';
+import { useSocket } from '../../../context/SocketContext';
+import { Video } from './Video';
+
+const PARTICIPANTS_TYPES = {
+    DEFAULT: 'default',
+    ME: 'me',
+};
+
+export const STREAM_STATES = {
+    FETCHING: 'fetching',
+    STREAM: 'stream',
+};
 
 const StreamsCont = (props) => {
     const {
         streamConstraints,
-        socketRef,
         chatId,
+        onJoinChat,
+        chatData,
+        me,
     } = props;
 
-    const webRTC = new WebRTCConnection({
-        roomId: chatId,
-        streamConstraints,
-    });
+    const socket = useSocket();
 
-    const { clients, provideMediaRef } = useWebRTC({
+    const [confParticipants, setConfParticipants] = useState([{
+        userData: {
+            userId: me.id,
+            username: me.username,
+        },
+        state: STREAM_STATES.FETCHING,
+        type: PARTICIPANTS_TYPES.ME,
+    }]);
+
+    const [webRTC, setWebRTC] = useState(new WebRTCConnection({
         roomId: chatId,
-        socketRef,
-        streamConstraints,
-    });
+        socket,
+        servers: {
+            iceServers: [{
+                url: 'stun:stun4.l.google.com:19302',
+            }],
+        },
+        mediaConstraints: {
+            video: true,
+            audio: true,
+        },
+    }));
+
+    const [isInit, setIsInit] = useState(false);
+
+    useEffect(() => {
+        const webRTCInstance = new WebRTCConnection({
+            roomId: chatId,
+            socket,
+            servers: {
+                iceServers: [{
+                    url: 'stun:stun4.l.google.com:19302',
+                }],
+            },
+            mediaConstraints: {
+                video: true,
+                audio: true,
+            },
+        });
+
+        return () => {
+            webRTCInstance.onForceConfLeave();
+        };
+    }, []);
+
+    if (!isInit) {
+        webRTC.joinRoom();
+        setIsInit(true);
+
+        webRTC?.onJoinRoom((data) => {
+            console.log(data);
+        });
+
+        webRTC?.onNewPeer(({ userData }) => {
+            setConfParticipants((p) => (
+                p.concat({
+                    userData: {
+                        userId: userData.userId,
+                        username: userData.username,
+                    },
+                    state: STREAM_STATES.FETCHING,
+                    type: PARTICIPANTS_TYPES.DEFAULT,
+                })
+            ));
+        });
+
+        webRTC?.onLocalStream((stream) => {
+            setConfParticipants((participants) => {
+                const myStreamIndex = participants.findIndex((p) => p.type === PARTICIPANTS_TYPES.ME);
+                const participantsCopy = [...participants];
+                participantsCopy[myStreamIndex] = {
+                    ...participantsCopy[myStreamIndex],
+                    stream,
+                    state: STREAM_STATES.STREAM,
+                };
+                return participantsCopy;
+            });
+        });
+
+        webRTC?.onRemoteStream(({ userId }) => {
+            setConfParticipants((participants) => {
+                const participantIndex = participants.findIndex((p) => p.userData.userId.toString() === userId.toString());
+                const participantsCopy = [...participants];
+                if (participantIndex !== -1) {
+                    participantsCopy[participantIndex] = {
+                        ...participantsCopy[participantIndex],
+                        stream: webRTC.peerConnections[userId].remoteStream,
+                        state: STREAM_STATES.STREAM,
+                    };
+                }
+                return participantsCopy;
+            });
+        });
+    }
 
     return (
         <div className={styles.content}>
-            <div className={cnb(styles.streamsCont, {
-                [styles.oneStream]: clients.length === 1,
-                [styles.twoStreams]: clients.length === 2,
-                [styles.threeStreams]: clients.length === 3,
-                [styles.fourStreams]: clients.length === 4,
+            {confParticipants.map((p) => {
+                return (
+                    <Video
+                        stream={p.stream}
+                        userData={p.userData}
+                        type={p.type}
+                        state={p.state}
+                        key={p.userData.userId + p.state}
+                    />
+                );
             })}
-            >
-                {clients.map((c) => (
-                    <div
-                        key={c.peerID}
-                        className={cnb(styles.streamBlock, {
-                            [styles.oneStream]: clients.length === 1,
-                            [styles.twoStreams]: clients.length === 2,
-                            [styles.threeStreams]: clients.length === 3,
-                            [styles.fourStreams]: clients.length === 4,
-                        })}
-                    >
-                        <>
-                            <video
-                                width="100%"
-                                height="100%"
-                                ref={(instance) => {
-                                    provideMediaRef(c.peerID, instance);
-                                }}
-                                autoPlay
-                                playsInline
-                                className={styles.video}
-                            />
-                            <div
-                                className={styles.streamDesc}
-                            >
-                                {c.isMe ? (
-                                    <Typography>
-                                        You
-                                    </Typography>
-                                ) : (
-                                    <Typography>
-                                        {c.username}
-                                    </Typography>
-                                )}
-                            </div>
-                        </>
-                    </div>
-                ))}
-            </div>
-
         </div>
     );
 };
 
 StreamsCont.propTypes = {
     streamConstraints: PropTypes.object,
-    socketRef: PropTypes.object,
     chatId: PropTypes.string,
+    onJoinChat: PropTypes.func,
+    chatData: PropTypes.object,
+    me: PropTypes.object,
 };
 
 StreamsCont.defaultProps = {
     streamConstraints: {},
-    socketRef: {},
     chatId: '',
+    onJoinChat: emptyFunc,
+    chatData: {},
+    me: {},
 };
 
 export default React.memo(StreamsCont);

@@ -18,6 +18,8 @@ services:
       - TOKEN_SECRET=qwerty
       - CORS_ORIGIN=*
       - MONGO_URL=mongodb://mongo:27017/mychat
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     restart: always
     ports:
       - 26502:3001
@@ -43,6 +45,13 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME
       - ME_CONFIG_BASICAUTH_PASSWORD
       - ME_CONFIG_SITE_BASEURL=/db/
+
+  redis:
+    image: redis:6.2.1-alpine
+    restart: always
+    command: redis-server
+    ports:
+      - 57012:6379
 
 networks:
   default:
