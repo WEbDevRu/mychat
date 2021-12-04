@@ -11,9 +11,9 @@ class socketRouter {
 
            const cbArg = arguments;
            let i = 1;
-
            const formattedReq = {
                ...req,
+               headers: req.data.headers,
                data: req.data.data
            }
            const performMiddleware = async (req) => {

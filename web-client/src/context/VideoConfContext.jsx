@@ -13,16 +13,25 @@ export const VideoConfProvider = (props) => {
         children,
         socketRef,
     } = props;
+    const [chatData, setChatData] = useState({});
+
     const [streamConstraints, setStreamConstraints] = useState({
         audio: true,
         video: true,
     });
+
+    const onJoinChat = ({ data }) => {
+        setChatData(data);
+    };
+
 
     return (
         <VideoConfContext.Provider value={{
             streamConstraints,
             setStreamConstraints,
             socketRef,
+            onJoinChat,
+            chatData,
         }}
         >
             {children}

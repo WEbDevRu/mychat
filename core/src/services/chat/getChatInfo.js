@@ -1,12 +1,20 @@
 const { Chat } = require('../../models/chat');
+const { ChatParticipant } = require('../../models/chatParticipant');
 const { withTransaction } = require('../../utils/withTransaction');
-async function getChatInfo({ chatId }, { session } = {}) {
+async function getChatInfo({ chatId, userId }, { session } = {}) {
 
     const result = await Chat.findOne({
         _id: chatId,
-    }).populate('participants').session(session);
+    });
+
+    const participant = await ChatParticipant.findOne({
+        chat: chatId,
+        user: userId
+    });
+
     return {
-        chatInfo: result.toDto(),
+        ...result.toDto(),
+        isSubscribed: !!participant
     }
 }
 
