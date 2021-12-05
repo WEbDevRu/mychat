@@ -13,10 +13,13 @@ const Video = (props) => {
     } = props;
 
     const videoRef = useRef();
+    const [changeState, setChangeState] = useState();
 
     useEffect(() => {
         if (state === STREAM_STATES.STREAM) {
+            console.log('add stream', stream);
             videoRef.current.srcObject = stream;
+            setChangeState(Date.now);
         }
     }, [stream]);
 
@@ -37,7 +40,9 @@ const Video = (props) => {
                     </div>
                 )}
             </div>
-            <p>{userData.username}</p>
+            <p className={styles.streamName}>
+                {`${userData.username} ${type}`}
+            </p>
         </div>
     );
 };

@@ -53,22 +53,9 @@ const StreamsCont = (props) => {
     const [isInit, setIsInit] = useState(false);
 
     useEffect(() => {
-        const webRTCInstance = new WebRTCConnection({
-            roomId: chatId,
-            socket,
-            servers: {
-                iceServers: [{
-                    url: 'stun:stun4.l.google.com:19302',
-                }],
-            },
-            mediaConstraints: {
-                video: true,
-                audio: true,
-            },
-        });
 
         return () => {
-            webRTCInstance.onForceConfLeave();
+            webRTC.onForceConfLeave();
         };
     }, []);
 
@@ -120,10 +107,23 @@ const StreamsCont = (props) => {
                 return participantsCopy;
             });
         });
+
+        webRTC?.onParticipantLeave(({ userId }) => {
+            setConfParticipants((participants) => {
+                const participantIndex = participants.findIndex((p) => p.userData.userId.toString() === userId.toString());
+                const participantsCopy = [...participants];
+                if (participantIndex !== -1) {
+                    participantsCopy.splice(participantIndex, 1);
+                }
+                return participantsCopy;
+            });
+        });
     }
+
 
     return (
         <div className={styles.content}>
+            {console.log(confParticipants)}
             {confParticipants.map((p) => {
                 return (
                     <Video

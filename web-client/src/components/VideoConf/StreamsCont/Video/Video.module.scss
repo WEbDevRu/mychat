@@ -1,6 +1,7 @@
 .content {
   width: 500px;
   margin: 10px;
+  background: var(--light-primary-color)
 }
 
 .videoElem {
@@ -18,4 +19,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.streamName {
+  color: white;
+  padding: 10px;
 }

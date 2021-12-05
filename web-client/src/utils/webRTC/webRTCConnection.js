@@ -8,6 +8,7 @@ import {
     LEAVE_VIDEO_CONF,
     VIDEO_CONF_SDP_ANSWER,
     VIDEO_CONF_ICE_CANDIDATE,
+    VIDEO_CONF_PARTICIPANT_LEAVE,
 } from '../../const/socket/EVENTS';
 import { getUserMedia } from './getUserMedia';
 
@@ -23,10 +24,12 @@ class WebRTCConnection {
         this.servers = servers;
         this.mediaConstraints = mediaConstraints;
         this.localStream = '';
-        this.inited = true;
+        this.inited = false;
     }
 
     joinRoomSubscribers = [];
+
+    participantLeaveSubscribers = [];
 
     localStreamSubscribers = [];
 
@@ -52,6 +55,11 @@ class WebRTCConnection {
             this.socket.onSubscribe(VIDEO_CONF_ICE_CANDIDATE, (d) => this.handleICECandidate(d));
         });
 
+        this.socket.onSubscribe(VIDEO_CONF_PARTICIPANT_LEAVE, async (data) => {
+            delete this.peerConnections[data.userId];
+            this.participantLeaveSubscribers.forEach((cb) => cb(data));
+        });
+
         this.updateStatusInterval = setInterval(() => {
             this.socket.onEmit(UPDATE_VIDEO_CONF_ONLINE_STATUS, { roomId: this.roomId });
         }, 10000);
@@ -74,6 +82,16 @@ class WebRTCConnection {
             offerToReceiveAudio: true,
             offerToReceiveVideo: true,
         });
+
+        this.peerConnections[userData.userId] = {
+            connection: peerConnection,
+        };
+
+        this.peerConnections[userData.userId].connection.ontrack = ({ streams: [remoteStream] }) => {
+            this.peerConnections[userData.userId].remoteStream = remoteStream;
+            this.remoteStreamSubscribers.forEach((cb) => cb({ userId: userData.userId }));
+        };
+
         await peerConnection.setLocalDescription(offer);
 
         this.peerConnections[userData.userId] = {
@@ -83,18 +101,21 @@ class WebRTCConnection {
                 username: userData.username,
             },
         };
-        this.peerConnections[userData.userId].connection.ontrack = ({ streams: [remoteStream] }) => {
-            this.peerConnections[userData.userId].remoteStream = remoteStream;
-            this.remoteStreamSubscribers.forEach((cb) => cb({ userId: userData.userId }));
-        };
-        this.socket.onEmit(VIDEO_CONF_NEW_SDP_OFFER, {
-            offer,
-            roomId: this.roomId,
-        });
+        if (!this.inited) {
+            this.socket.onEmit(VIDEO_CONF_NEW_SDP_OFFER, {
+                offer,
+                roomId: this.roomId,
+            });
+            this.inited = true;
+        }
     }
 
     onJoinRoom(cb) {
         this.joinRoomSubscribers.push(cb);
+    }
+
+    onParticipantLeave(cb) {
+        this.participantLeaveSubscribers.push(cb);
     }
 
     handleSDPOffer = async (data) => {
@@ -110,6 +131,13 @@ class WebRTCConnection {
                 username: data.username,
             },
         };
+
+        this.newPeerSubscribers.forEach((cb) => cb({
+            userData: {
+                userId: data.userId,
+                username: data.username,
+            },
+        }));
 
         this.peerConnections[data.userId].connection.ontrack = ({ streams: [remoteStream] }) => {
             this.peerConnections[data.userId].remoteStream = remoteStream;
@@ -133,13 +161,6 @@ class WebRTCConnection {
             }
         };
 
-        this.newPeerSubscribers.forEach((cb) => cb({
-            userData: {
-                userId: data.userId,
-                username: data.username,
-            },
-        }));
-
         this.socket.onEmit(VIDEO_CONF_SDP_ANSWER, {
             answer,
             receiverSocketId: data.senderSocketId,
@@ -161,6 +182,7 @@ class WebRTCConnection {
 
     handleICECandidate = async (data) => {
         if (this.peerConnections[data.userId].connection.iceConnectionState !== 'connected') {
+            console.log(this.peerConnections[data.userId]);
             await this.peerConnections[data.userId].connection.addIceCandidate(
                 new RTCIceCandidate(data.candidate),
             );
@@ -179,10 +201,18 @@ class WebRTCConnection {
         this.newPeerSubscribers.push(cb);
     }
 
-    onForceConfLeave() {
+    onForceConfLeave = () => {
         this.socket.onEmit(LEAVE_VIDEO_CONF, { roomId: this.roomId });
         this.socket.onUnSubscribeFromEvent(VIDEO_CONF_SUCCESS_JOIN);
         this.socket.onUnSubscribeFromEvent(VIDEO_CONF_NEW_SDP_OFFER);
+        if (this.localStream) {
+            this.localStream.getTracks().forEach(function(track) {
+                if (track.readyState === 'live') {
+                    console.log('stop tracks');
+                    track.stop();
+                }
+            });
+        }
         clearInterval(this.updateStatusInterval);
     }
 }
