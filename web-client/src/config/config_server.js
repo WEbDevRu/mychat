@@ -1,4 +1,4 @@
 module.exports = {
-    backendURL: 'https://mytelegram.site',
-    socketServerURL: 'https://mytelegram.site',
+    backendURL: 'https://mychat.whats-better.fun',
+    socketServerURL: 'https://mychat.whats-better.fun',
 };
