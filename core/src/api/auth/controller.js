@@ -17,7 +17,8 @@ exports.postMe = wrapAsyncMiddleware(async(req, res) => {
 
     const expiresDate = Date.now() + 365*24*60*60*1000;
     res.cookie('AUTHENTICATION', result.accessToken, {
-        expires: new Date(expiresDate)
+        expires: new Date(expiresDate),
+        secure: false,
     });
 
     return res.status(httpStatus.OK).json(result);
