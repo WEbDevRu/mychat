@@ -9,8 +9,8 @@ apps:
   tls:
     certificates:
       automate:
-        - mychat.whats-better.fun
-        - mychat-turn.whats-better.fun
+        - mychat-livekit.whats-better.fun
+        - mychat-livekit-turn.whats-better.fun
   layer4:
     servers:
       main:
@@ -19,7 +19,7 @@ apps:
           - match:
             - tls:
                 sni:
-                  - "mychat-turn.whats-better.fun"
+                  - "mychat-livekit-turn.whats-better.fun"
             handle:
               - handler: tls
               - handler: proxy
@@ -28,7 +28,7 @@ apps:
           - match:
               - tls:
                   sni:
-                    - "mychat.whats-better.fun"
+                    - "mychat-livekit.whats-better.fun"
             handle:
               - handler: tls
                 connection_policies:
