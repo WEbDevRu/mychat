@@ -11,7 +11,7 @@ redis:
     db: 0
 turn:
     enabled: true
-    domain: mychat-turn.whats-better.fun
+    domain: mychat-livekit-turn.whats-better.fun
     cert_file: ""
     key_file: ""
     tls_port: 5349
