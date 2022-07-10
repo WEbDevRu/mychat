@@ -1,0 +1,21 @@
+port: 7880
+rtc:
+    tcp_port: 7881
+    port_range_start: 50000
+    port_range_end: 60000
+    use_external_ip: true
+redis:
+    address: redis:6379
+    username: ""
+    password: ""
+    db: 0
+turn:
+    enabled: true
+    domain: mychat-turn.whats-better.fun
+    cert_file: ""
+    key_file: ""
+    tls_port: 5349
+    udp_port: 443
+    external_tls: true
+keys:
+    APIhGpMrs73Fu9W: ad1Omw31DWd1F8b8oFkMbAdt9Jc5yKxe7zj5nPwtU6e

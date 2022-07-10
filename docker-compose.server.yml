@@ -45,6 +45,30 @@ services:
     ports:
       - "57012:6379"
 
+  caddy:
+    image: livekit/caddyl4
+    command: run --config /etc/caddy.yaml --adapter yaml
+    restart: unless-stopped
+    network_mode: "host"
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - ./livekit/caddy.yaml:/etc/caddy.yaml
+      - ./livekit/caddy_data:/data
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --config /etc/livekit.yaml
+    restart: unless-stopped
+    network_mode: "host"
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - ./livekit/livekit.yaml:/etc/livekit.yaml
+
 networks:
   default:
     external:
