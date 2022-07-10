@@ -39,7 +39,7 @@ services:
       - "26501:3000"
 
   redis:
-    image: redis:6.2.1-alpine
+    image: redis:6.2.7-alpine
     restart: always
     command: redis-server
     ports:
