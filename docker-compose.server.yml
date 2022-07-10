@@ -1,11 +1,11 @@
-version: '2'
+version: '3.6'
 services:
   mongo:
     image: mongo
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
     ports:
-      - 57025:27017
+      - "57025:27017"
     volumes:
       - /data/mychat/mongodb:/data/db
 
@@ -20,9 +20,15 @@ services:
       - MONGO_URL=mongodb://mongo:27017/mychat
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - mongo
+    links:
+      - redis
+      - mongo
     restart: always
     ports:
-      - 26502:3001
+      - "26502:3001"
 
   web-client:
     build:
@@ -30,28 +36,14 @@ services:
       dockerfile: Dockerfile.prod
     restart: always
     ports:
-      - 26501:3000
-
-  mongoExpress:
-    ports:
-      - 26505:8081
-    image: mongo-express
-    restart: always
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    environment:
-      - ME_CONFIG_BASICAUTH_USERNAME
-      - ME_CONFIG_BASICAUTH_PASSWORD
-      - ME_CONFIG_SITE_BASEURL=/db/
+      - "26501:3000"
 
   redis:
     image: redis:6.2.1-alpine
     restart: always
     command: redis-server
     ports:
-      - 57012:6379
+      - "57012:6379"
 
 networks:
   default:
