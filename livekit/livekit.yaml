@@ -6,9 +6,6 @@ rtc:
     use_external_ip: true
 redis:
     address: redis:6379
-    username: ""
-    password: ""
-    db: 0
 turn:
     enabled: true
     domain: mychat-livekit-turn.whats-better.fun
