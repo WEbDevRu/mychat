@@ -53,6 +53,7 @@ services:
     volumes:
       - ./livekit/caddy.yaml:/etc/caddy.yaml
       - ./livekit/caddy_data:/data
+
   livekit:
     image: livekit/livekit-server:latest
     command: --config /etc/livekit.yaml
