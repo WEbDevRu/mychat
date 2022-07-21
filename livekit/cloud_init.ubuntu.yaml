@@ -22,7 +22,7 @@ write_files:
           port_range_end: 60000
           use_external_ip: true
       redis:
-          address: redis:6379
+          address: localhost:57012
           username: ""
           password: ""
           db: 0

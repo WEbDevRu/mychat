@@ -5,7 +5,10 @@ rtc:
     port_range_end: 60000
     use_external_ip: true
 redis:
-    address: redis:6379
+    address: localhost:57012
+    username: ""
+    password: ""
+    db: 0
 turn:
     enabled: true
     domain: mychat-livekit-turn.whats-better.fun
