@@ -13,6 +13,7 @@ import { MessengerProvider } from './context/MessengerContext';
 import { VideoConfProvider } from './context/VideoConfContext';
 import config from './config/index';
 import { useSocket } from './context/SocketContext';
+import { VideoStream } from './components/VideoStream';
 
 const App = () => {
     const {
@@ -49,6 +50,12 @@ const App = () => {
                             >
                                 <VideoConf />
                             </VideoConfProvider>
+                        )}
+                    />
+                    <Route
+                        path="/stream/:chatId"
+                        render={() => (
+                            <VideoStream />
                         )}
                     />
                 </>

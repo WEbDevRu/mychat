@@ -1,0 +1,8 @@
+@import "../../styles/rem";
+
+.content {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr rem(70px);
+}
