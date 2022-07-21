@@ -17,6 +17,13 @@
   color: var(--primary-text-color);
 }
 
+.streamIcon {
+  position: absolute;
+  top: rem(16px);
+  right: rem(70px);
+  color: var(--primary-text-color);
+}
+
 .chatName {
   font-weight: 600;
 }

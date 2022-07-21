@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, Button } from '@material-ui/core';
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
 
@@ -34,12 +35,20 @@ const Navbar = (props) => {
                         Subscribe
                     </Button>
                 ) : (
-                    <Link
-                        to={`/conf/${chatId}`}
-                        className={styles.chatIcon}
-                    >
-                        <VoiceChatIcon />
-                    </Link>
+                    <>
+                        <Link
+                            to={`/conf/${chatId}`}
+                            className={styles.chatIcon}
+                        >
+                            <VoiceChatIcon />
+                        </Link>
+                        <Link
+                            to={`/stream/${chatId}`}
+                            className={styles.streamIcon}
+                        >
+                            <PersonalVideoIcon />
+                        </Link>
+                    </>
                 )}
 
             </div>
