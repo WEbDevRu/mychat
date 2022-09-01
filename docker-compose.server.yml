@@ -45,6 +45,7 @@ services:
     ports:
       - "57012:6379"
 
+
   livekit:
     image: livekit/livekit-server:latest
     command: --config /etc/livekit.yaml
@@ -58,6 +59,9 @@ services:
       - "7881:7881"
       - "7882:7882"
       - "5349:5349"
+      - "443:443"
+      - "443:443/udp"
+      - "80:80"
       - "0.0.0.0:50000-50010:50000-50010/udp"
     volumes:
       - ./livekit/livekit.yaml:/etc/livekit.yaml
