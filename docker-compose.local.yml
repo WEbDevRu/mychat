@@ -15,3 +15,17 @@ services:
     command: redis-server
     ports:
       - 57012:6379
+
+  redis-livelists:
+    image: redis:7.0.5-alpine
+    restart: always
+    command: redis-server
+    ports:
+      - 57013:6379
+
+  redis-stack-livelists:
+    image: redis/redis-stack:latest
+    restart: always
+    command: redis-server
+    ports:
+      - 57014:6379
