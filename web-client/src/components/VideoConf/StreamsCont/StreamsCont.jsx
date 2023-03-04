@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './StreamsCont.module.scss';
 import WebRTCConnection from '../../../utils/webRTC/webRTCConnection';
+import { RTCEngine } from '../../../utils/webRTC/RTCEngine';
 import { emptyFunc } from '../../../utils/function/emptyFunc';
 import { useSocket } from '../../../context/SocketContext';
 import { Video } from './Video';
@@ -24,6 +25,8 @@ const StreamsCont = (props) => {
         chatData,
         me,
     } = props;
+
+    const pc = new RTCEngine();
 
     const socket = useSocket();
 
