@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { ChannelClient, ParticipantClient } = require('livelists-node-js');
 const { User } = require('../../models/user');
 const { Chat } =  require('../../models/chat');
 const { Message, MESSAGE_TYPES } = require('../../models/message');
@@ -6,9 +7,16 @@ const { ChatParticipant, PARTICIPANT_TYPES } = require('../../models/chatPartici
 const { withTransaction } = require('../../utils/withTransaction');
 const { getRandomInt } = require('../../utils/numbers/getRandomInt');
 const { USER_COLORS_COUNT } = require('../../const/USERS');
+
 require('dotenv').config();
 
 async function createUser({ username }, { session } = {}) {
+    const client = new ChannelClient({
+        apiHost: "http://localhost:8080",
+        apiKey: "apiKey",
+        secretKey:  "secretKey"
+    });
+
     const now = Date.now();
 
     const user = new User({
@@ -35,6 +43,30 @@ async function createUser({ username }, { session } = {}) {
     });
 
     await chat.save({ session });
+
+    await client.createChannel({
+        identifier: chat._id,
+        maxParticipants: 100,
+    });
+
+    const participnatClient = new ParticipantClient({
+        apiHost: "http://localhost:8080",
+        apiKey: "apiKey",
+        secretKey:  "secretKey"
+    });
+
+    try {
+        await participnatClient.addParticipantToChannel({
+            identifier: user._id,
+            channelId: chat._id,
+            grants: {
+                sendMessage: true,
+                readMessages: true,
+            }
+        })
+    } catch (e) {
+        console.log(e)
+    }
 
     await ChatParticipant.create([{
         chat: chat._id,

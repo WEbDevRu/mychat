@@ -14,7 +14,7 @@ import { VideoConfProvider } from './context/VideoConfContext';
 import config from './config/index';
 import { useSocket } from './context/SocketContext';
 import { VideoStream } from './components/VideoStream';
-import { Chat } from './components/LiveLists/Chat';
+import { Loader } from './components/LiveLists/Loader';
 
 const App = () => {
     const {
@@ -56,7 +56,7 @@ const App = () => {
                     <Route
                         path="/live_lists/:chatId"
                         render={() => (
-                            <Chat />
+                            <Loader />
                         )}
                     />
                     <Route

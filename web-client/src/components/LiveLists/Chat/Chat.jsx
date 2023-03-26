@@ -7,7 +7,7 @@ const Chat = (props) => {
     const {
         livelistsToken,
     } = props;
-    const { messages, join, pubslishMessage } = useChannel({
+    const { join, publishMessage } = useChannel({
         url: 'ws://localhost:7771/ws',
         channelId: 'objectId',
         authToken: livelistsToken,
@@ -21,7 +21,10 @@ const Chat = (props) => {
         <div className={styles.content}>
             Chat live lists
             <ChatInput
-                onPublish={pubslishMessage}
+                placeholder="Message"
+                onSubmit={({ value }) => publishMessage({
+                    text: value,
+                })}
             />
         </div>
     );

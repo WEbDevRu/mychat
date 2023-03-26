@@ -18,7 +18,7 @@ const VideoStream = () => {
     const [token, setToken] = useState();
 
     const { state: getAccessTokenRS, onRequest: onGetAccessToken } = useRequest({
-        url: `${API_LIVE_STREAM_ACCESS_TOKEN }/${ chatId}`,
+        url: `${API_LIVE_STREAM_ACCESS_TOKEN }/${chatId}`,
         method: HTTP_REQUEST_METHODS.GET,
     });
 
