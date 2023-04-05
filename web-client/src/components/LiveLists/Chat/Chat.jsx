@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ChatInput, useChannel } from 'livelists-react-sdk';
+import {
+    ChatInput,
+    useChannel,
+    MessagesList,
+    RecentMessages,
+} from 'livelists-react-sdk';
 import styles from './Chat.module.scss';
 
 const Chat = (props) => {
     const {
         livelistsToken,
     } = props;
-    const { join, publishMessage } = useChannel({
+    const { join, publishMessage, recentMessages } = useChannel({
         url: 'ws://localhost:7771/ws',
-        channelId: 'objectId',
-        authToken: livelistsToken,
+        accessToken: livelistsToken,
     });
 
     useEffect(() => {
@@ -19,7 +23,9 @@ const Chat = (props) => {
 
     return (
         <div className={styles.content}>
-            Chat live lists
+            <MessagesList>
+                <RecentMessages messages={recentMessages} />
+            </MessagesList>
             <ChatInput
                 placeholder="Message"
                 onSubmit={({ value }) => publishMessage({

@@ -25,7 +25,7 @@ const Loader = () => {
     if (getAccessTokenRS.status === HTTP_REQUEST_STATUSES.SUCCEEDED) {
         return (
             <Chat
-                livelistsToken="sdfjg"
+                livelistsToken={getAccessTokenRS.result.accessToken}
             />
         );
     }
