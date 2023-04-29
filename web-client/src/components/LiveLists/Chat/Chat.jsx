@@ -5,6 +5,7 @@ import {
     useChannel,
     MessagesList,
     RecentMessages,
+    HistoryMessages,
 } from 'livelists-react-sdk';
 import styles from './Chat.module.scss';
 
@@ -12,7 +13,12 @@ const Chat = (props) => {
     const {
         livelistsToken,
     } = props;
-    const { join, publishMessage, recentMessages } = useChannel({
+    const {
+        join,
+        publishMessage,
+        recentMessages,
+        historyMessages,
+    } = useChannel({
         url: 'ws://localhost:7771/ws',
         accessToken: livelistsToken,
     });
@@ -24,6 +30,7 @@ const Chat = (props) => {
     return (
         <div className={styles.content}>
             <MessagesList>
+                <HistoryMessages messages={historyMessages} />
                 <RecentMessages messages={recentMessages} />
             </MessagesList>
             <ChatInput

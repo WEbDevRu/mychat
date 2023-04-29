@@ -1,20 +1,17 @@
-const { ParticipantClient } = require('livelists-node-js');
+const liveListsClient = require('../../utils/livelists/LivelistsClient');
 const { ChatParticipant, PARTICIPANT_TYPES } = require('../../models/chatParticipant');
 const { Message, MESSAGE_TYPES } = require('../../models/message');
 const { withTransaction } = require('../../utils/withTransaction');
 async function joinUserToChat({ userId, chatId }, { session } = {}) {
-    const client = new ParticipantClient({
-        apiHost: "http://localhost:8080",
-        apiKey: "apiKey",
-        secretKey:  "secretKey"
-    });
-
-    await client.addParticipantToChannel({
+    await liveListsClient.participant.addParticipantToChannel({
         identifier: userId,
         channelId: chatId,
         grants: {
             sendMessage: true,
             readMessages: true,
+        },
+        customData: {
+          avatarSrc: "https://s3.com"
         }
     })
 
