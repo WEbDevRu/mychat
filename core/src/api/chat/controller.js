@@ -23,6 +23,7 @@ exports.putChatJoin = wrapAsyncMiddleware( async(req, res) => {
     const result = await joinUserToChatWT({
         chatId: req.params.chatId,
         userId: req.data.user._id,
+        username: req.data.user.username,
     });
     return res.status(httpStatus.OK).json(result);
 })

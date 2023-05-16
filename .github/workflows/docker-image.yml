@@ -2,35 +2,16 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
 
   build:
     runs-on: self-hosted
-    env:
-      REGISTRY: ghcr.io
-      IMAGE_NAME: webdevru/mychat
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Login in to the Container registry
-      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build the Docker image
-      run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build
-    - name: Login to github repository
-      run: docker login https://docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
-    - name: Tag core image
-      run: docker tag mychat_core docker.pkg.github.com/webdevru/mychat/mychat_core:latest
-    - name: Push core image
-      run: docker push docker.pkg.github.com/webdevru/mychat/mychat_core
-    - name: Tag web-client image
-      run: docker tag mychat_web-client docker.pkg.github.com/webdevru/mychat/mychat_web-client:latest
-    - name: Push web-client image
-      run: docker push docker.pkg.github.com/webdevru/mychat/mychat_web-client
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker-compose --compatibility -f docker-compose.server.yml up -d --force-recreate --build

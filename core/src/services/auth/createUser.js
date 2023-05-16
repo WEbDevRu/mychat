@@ -64,7 +64,7 @@ async function createUser({ username }, { session } = {}) {
                 readMessages: true,
             },
             customData: {
-                avatarSrc: "https://s3.com"
+                username,
             }
         })
     } catch (e) {

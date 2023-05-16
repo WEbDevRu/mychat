@@ -8,6 +8,7 @@ import {
     HistoryMessages,
 } from 'livelists-react-sdk';
 import styles from './Chat.module.scss';
+import { LoadingPage } from '../../Common/LoadingPage';
 
 const Chat = (props) => {
     const {
@@ -18,6 +19,9 @@ const Chat = (props) => {
         publishMessage,
         recentMessages,
         historyMessages,
+        connectionState,
+        isLoadingHistory,
+        loadMoreMessages,
     } = useChannel({
         url: 'ws://localhost:7771/ws',
         accessToken: livelistsToken,
@@ -27,14 +31,32 @@ const Chat = (props) => {
         join();
     }, []);
 
+    if (connectionState === 'connecting') {
+        return (
+            <LoadingPage />
+        );
+    }
+
+    if (connectionState === 'connectionError') {
+        return (
+            <p>
+                Connection error
+            </p>
+        );
+    }
+
+    console.log(historyMessages.map((m) => m.message.message));
     return (
         <div className={styles.content}>
-            <MessagesList>
+            <MessagesList
+                onLoadMore={loadMoreMessages}
+                isLoadingMore={isLoadingHistory}
+            >
                 <HistoryMessages messages={historyMessages} />
                 <RecentMessages messages={recentMessages} />
             </MessagesList>
             <ChatInput
-                placeholder="Message"
+                placeholder="Type something..."
                 onSubmit={({ value }) => publishMessage({
                     text: value,
                 })}
