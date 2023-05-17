@@ -4,8 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-RUN npm i -g pm2 --quiet
-RUN npm install
+#RUN npm i -g pm2 --quiet
+RUN npm install --force
 
 EXPOSE 3000
 
