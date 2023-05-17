@@ -38,3 +38,32 @@ services:
     command: redis-server
     ports:
       - 57014:6379
+
+  core:
+    build:
+      context: ./core
+      dockerfile: Dockerfile
+    environment:
+      - COOKIE_SECRET=qwerty
+      - TOKEN_SECRET=qwerty
+      - CORS_ORIGIN=*
+      - MONGO_URL=mongodb://mongo:27017/mychat
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - mongo
+    links:
+      - redis
+      - mongo
+    restart: always
+    ports:
+      - "26502:3001"
+
+  web-client:
+    build:
+      context: ./web-client
+      dockerfile: Dockerfile.prod
+    restart: always
+    ports:
+      - "26501:3000"
