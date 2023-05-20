@@ -7,16 +7,11 @@ const { ChatParticipant, PARTICIPANT_TYPES } = require('../../models/chatPartici
 const { withTransaction } = require('../../utils/withTransaction');
 const { getRandomInt } = require('../../utils/numbers/getRandomInt');
 const { USER_COLORS_COUNT } = require('../../const/USERS');
+const liveListsClient = require('../../utils/livelists/LivelistsClient');
 
 require('dotenv').config();
 
 async function createUser({ username }, { session } = {}) {
-    const client = new ChannelClient({
-        apiHost: "http://mychat.whats-better.fun:8080/",
-        apiKey: "apiKey",
-        secretKey:  "secretKey"
-    });
-
     const now = Date.now();
 
     const user = new User({
@@ -44,19 +39,13 @@ async function createUser({ username }, { session } = {}) {
 
     await chat.save({ session });
 
-    await client.createChannel({
+    await liveListsClient.channel.createChannel({
         identifier: chat._id,
         maxParticipants: 100,
     });
 
-    const participnatClient = new ParticipantClient({
-        apiHost: "http://mychat.whats-better.fun:8080/",
-        apiKey: "apiKey",
-        secretKey:  "secretKey"
-    });
-
     try {
-        await participnatClient.addParticipantToChannel({
+        await liveListsClient.participant.addParticipantToChannel({
             identifier: user._id,
             channelId: chat._id,
             grants: {

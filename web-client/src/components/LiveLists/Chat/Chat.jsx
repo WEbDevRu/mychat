@@ -23,7 +23,7 @@ const Chat = (props) => {
         isLoadingHistory,
         loadMoreMessages,
     } = useChannel({
-        url: 'ws://mychat.whats-better.fun:7771/ws',
+        url: 'wss://mychat.whats-better.fun/livelists-ws',
         accessToken: livelistsToken,
     });
 
