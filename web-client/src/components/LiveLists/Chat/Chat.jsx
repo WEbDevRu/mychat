@@ -23,7 +23,7 @@ const Chat = (props) => {
         isLoadingHistory,
         loadMoreMessages,
     } = useChannel({
-        url: 'ws://localhost:7771/ws',
+        url: 'ws://mychat.whats-better.fun:7771/ws',
         accessToken: livelistsToken,
     });
 
@@ -45,7 +45,6 @@ const Chat = (props) => {
         );
     }
 
-    console.log(historyMessages.map((m) => m.message.message));
     return (
         <div className={styles.content}>
             <MessagesList
