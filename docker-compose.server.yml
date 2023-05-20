@@ -38,13 +38,6 @@ services:
     ports:
       - "26501:3000"
 
-  livelists-server:
-    image: nikrainev/livelists-server:0.1.4
-    restart: always
-    ports:
-      - "7771:7771"
-      - "7772:8080"
-
   mongo-livelists:
     image: mongo:6.0.3
     restart: always
