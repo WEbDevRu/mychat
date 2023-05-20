@@ -43,6 +43,7 @@ services:
     restart: always
     ports:
       - "7771:7771"
+      - "7772:8080"
 
   mongo-livelists:
     image: mongo:6.0.3
