@@ -38,28 +38,29 @@ services:
     ports:
       - "26501:3000"
 
+  livelists-server:
+    image: nikrainev/livelists-server:latest
+    restart: always
+    volumes:
+      - ./live/livekit.yaml:/etc/pkg/config.yaml
+    ports:
+      - "7771:7771"
+
+  mongo-livelists:
+    image: mongo:6.0.3
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all" ]
+    expose:
+      - 27017
+    ports:
+      - "57017:27017"
+
   redis:
     image: redis:6.2.7-alpine
     restart: always
     command: redis-server
     ports:
       - "57012:6379"
-
-  livekit:
-    image: livekit/livekit-server:latest
-    command: --config /etc/livekit.yaml
-    restart: unless-stopped
-    depends_on:
-      - redis
-    links:
-      - redis
-    ports:
-      - "7880:7880"
-      - "7881:7881"
-      - "7882:7882"
-      - "5349:5349"
-    volumes:
-      - ./livekit/livekit.yaml:/etc/livekit.yaml
 
 networks:
   default:
