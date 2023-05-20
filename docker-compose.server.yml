@@ -42,7 +42,7 @@ services:
     image: nikrainev/livelists-server:latest
     restart: always
     volumes:
-      - /home/livelists/config.yaml:/workspace/pkg/config.yaml
+      - /home/livelists/config.yaml:/etc/pkg/config.yaml
     ports:
       - "7771:7771"
 
