@@ -39,10 +39,8 @@ services:
       - "26501:3000"
 
   livelists-server:
-    image: nikrainev/livelists-server:0.1.2
+    image: nikrainev/livelists-server:0.1.4
     restart: always
-    volumes:
-      - /home/livelists/config.yaml:/workspace/livelists-server/pkg/config.yaml
     ports:
       - "7771:7771"
 

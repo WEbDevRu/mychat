@@ -39,31 +39,10 @@ services:
     ports:
       - 57014:6379
 
-  core:
-    build:
-      context: ./core
-      dockerfile: Dockerfile
-    environment:
-      - COOKIE_SECRET=qwerty
-      - TOKEN_SECRET=qwerty
-      - CORS_ORIGIN=*
-      - MONGO_URL=mongodb://mongo:27017/mychat
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
-      - mongo
-    links:
-      - redis
-      - mongo
+  livelists-server:
+    image: nikrainev/livelists-server:0.1.3
     restart: always
+    volumes:
+      - /home/livelists/config.yaml:/workspace/livelists-server/pkg/config.yaml
     ports:
-      - "26502:3001"
-
-  web-client:
-    build:
-      context: ./web-client
-      dockerfile: Dockerfile.prod
-    restart: always
-    ports:
-      - "26501:3000"
+      - "7771:7771"
