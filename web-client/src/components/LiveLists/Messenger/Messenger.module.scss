@@ -1,0 +1,23 @@
+.content {
+  width: 100%;
+}
+
+.list {
+  height: calc(100vh - 120px);
+}
+
+.messagesRow {
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+.channelsList {
+  width: 350px;
+  flex-shrink: 0;
+}
+
+.messagesList {
+  width: 100%;
+  flex-shrink: 1;
+}

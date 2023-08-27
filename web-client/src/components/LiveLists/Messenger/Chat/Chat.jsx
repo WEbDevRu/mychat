@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 import {
     ChatInput,
@@ -8,12 +9,15 @@ import {
     HistoryMessages,
 } from 'livelists-react-sdk';
 import styles from './Chat.module.scss';
-import { LoadingPage } from '../../Common/LoadingPage';
+import { Navigation } from '../Navigation';
+import { LoadingPage } from '../../../Common/LoadingPage';
 
 const Chat = (props) => {
     const {
-        livelistsToken,
+        wsRef,
+        channelId,
     } = props;
+
     const {
         join,
         publishMessage,
@@ -22,9 +26,15 @@ const Chat = (props) => {
         connectionState,
         isLoadingHistory,
         loadMoreMessages,
+        loadParticipants,
+        participants,
+        isParticipantsLoaded,
+        onSubscribeEvent,
+        publishEvent,
+        scrollToBottomKey,
     } = useChannel({
-        url: 'wss://mychat.whats-better.fun/livelists-ws',
-        accessToken: livelistsToken,
+        channelId,
+        wsConnector: wsRef,
     });
 
     useEffect(() => {
@@ -47,9 +57,19 @@ const Chat = (props) => {
 
     return (
         <div className={styles.content}>
+            <Navigation
+                loadParticipants={loadParticipants}
+                participants={participants}
+                isParticipantsLoaded={isParticipantsLoaded}
+                onSubscribeEvent={onSubscribeEvent}
+                publishEvent={publishEvent}
+                channelIdentifier={channelId}
+            />
             <MessagesList
                 onLoadMore={loadMoreMessages}
                 isLoadingMore={isLoadingHistory}
+                className={styles.list}
+                scrollToBottomKey={scrollToBottomKey}
             >
                 <HistoryMessages messages={historyMessages} />
                 <RecentMessages messages={recentMessages} />
@@ -65,11 +85,13 @@ const Chat = (props) => {
 };
 
 Chat.propTypes = {
-    livelistsToken: PropTypes.string,
+    wsRef: PropTypes.object,
+    channelId: PropTypes.string,
 };
 
 Chat.defaultProps = {
-    livelistsToken: '',
+    wsRef: null,
+    channelId: '',
 };
 
 export default React.memo(Chat);

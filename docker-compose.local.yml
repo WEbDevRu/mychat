@@ -32,16 +32,19 @@ services:
     ports:
       - 57013:6379
 
+  livelists-server:
+    image: nikrainev/livelists-server:0.1.5
+    restart: always
+    command: livelists-server
+    volumes:
+      - /Users/nikitakrainev/Desktop/LiveLists/mychat/livelists/config.yaml:/config.yaml
+    ports:
+      - 7771:7771
+      - 8080:8080
+
   redis-stack-livelists:
     image: redis/redis-stack:latest
     restart: always
     command: redis-server
     ports:
       - 57014:6379
-
-  livelists-server:
-    image: nikrainev/livelists-server:0.2.0
-    restart: always
-    ports:
-      - "7771:7771"
-      - "7772:8080"

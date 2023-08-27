@@ -1,0 +1,24 @@
+@import "../../../../styles/rem";
+
+.cont {
+  width: 100%;
+  height: rem(56px);
+  background: var(--surface-color);
+  padding: rem(0 16px);
+  position: relative;
+  box-shadow: 0 1px 5px -1px rgb(0 0 0 / 21%);
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.contentRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modalContent {
+  width: 500px;
+}

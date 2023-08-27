@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar, Button } from '@material-ui/core';
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
-import ChatIcon from '@material-ui/icons/Chat'
+import ChatIcon from '@material-ui/icons/Chat';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
 
@@ -57,7 +57,6 @@ const Navbar = (props) => {
                         </Link>
                     </>
                 )}
-
             </div>
         </div>
     );

@@ -41,7 +41,7 @@ const CreateButton = (props) => {
                     onClick={() => setSidebarBlock(SIDEBAR_BLOCKS.CREATE_GROUP)}
                 />
                 <DropDownItem
-                    text="New Private Chat"
+                    text="New Private Messenger"
                     icon={<PeopleOutline fontSize="inherit" />}
                 />
             </DropDown>

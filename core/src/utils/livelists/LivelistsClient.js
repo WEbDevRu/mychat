@@ -3,12 +3,12 @@ const { ChannelClient, ParticipantClient } = require('livelists-node-js');
 class LiveListsClient {
     constructor() {
         this.channel = new ChannelClient({
-            apiHost: "https://mychat.whats-better.fun//livelists-twirp",
+            apiHost: "http://localhost:8080",
             apiKey: "apiKey",
             secretKey:  "secretKey"
         })
         this.participant = new ParticipantClient({
-            apiHost: "https://mychat.whats-better.fun//livelists-twirp",
+            apiHost: "http://localhost:8080",
             apiKey: "apiKey",
             secretKey:  "secretKey"
         })
