@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
     useChannelsAggregation,
-    ChannelsList,
+    ChannelsList, ChannelContent,
 } from 'livelists-react-sdk';
 import styles from './Messenger.module.scss';
 import { Chat } from './Chat';
@@ -29,13 +29,13 @@ const Messenger = (props) => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.messagesRow}>
-                <div className={styles.channelsList}>
-                    <ChannelsList
-                        onSelect={({ channelId }) => setSelectedChannelId(channelId)}
-                        channels={channels.map((c) => c)}
-                    />
-                </div>
+            <div className={styles.channelsList}>
+                <ChannelsList
+                    onSelect={({ channelId }) => setSelectedChannelId(channelId)}
+                    channels={channels.map((c) => c)}
+                />
+            </div>
+            <ChannelContent>
                 {selectedChannelId && (
                     <Chat
                         key={selectedChannelId}
@@ -43,7 +43,7 @@ const Messenger = (props) => {
                         channelId={selectedChannelId}
                     />
                 )}
-            </div>
+            </ChannelContent>
         </div>
     );
 };

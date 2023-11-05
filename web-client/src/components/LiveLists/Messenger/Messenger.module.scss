@@ -1,19 +1,17 @@
 .content {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-start;
+  height: 100vh;
 }
 
 .list {
   height: calc(100vh - 120px);
 }
 
-.messagesRow {
-  display: flex;
-  justify-content: space-between;
-  align-content: flex-start;
-}
-
 .channelsList {
-  width: 350px;
+  width: 364px;
   flex-shrink: 0;
 }
 

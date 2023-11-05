@@ -43,7 +43,9 @@ const Loader = () => {
         }
     }, [getAccessTokenRS.status]);
 
-    if (ws) {
+    console.log(ws);
+
+    if (ws?.isConnected) {
         return (
             <Messenger
                 wsRef={ws}

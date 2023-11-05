@@ -7,9 +7,9 @@ import {
     MessagesList,
     RecentMessages,
     HistoryMessages,
+    ChannelInfo,
 } from 'livelists-react-sdk';
 import styles from './Chat.module.scss';
-import { Navigation } from '../Navigation';
 import { LoadingPage } from '../../../Common/LoadingPage';
 
 const Chat = (props) => {
@@ -32,6 +32,7 @@ const Chat = (props) => {
         onSubscribeEvent,
         publishEvent,
         scrollToBottomKey,
+        readMessage,
     } = useChannel({
         channelId,
         wsConnector: wsRef,
@@ -57,22 +58,20 @@ const Chat = (props) => {
 
     return (
         <div className={styles.content}>
-            <Navigation
-                loadParticipants={loadParticipants}
-                participants={participants}
-                isParticipantsLoaded={isParticipantsLoaded}
-                onSubscribeEvent={onSubscribeEvent}
-                publishEvent={publishEvent}
-                channelIdentifier={channelId}
-            />
+            <ChannelInfo />
             <MessagesList
                 onLoadMore={loadMoreMessages}
                 isLoadingMore={isLoadingHistory}
-                className={styles.list}
                 scrollToBottomKey={scrollToBottomKey}
             >
-                <HistoryMessages messages={historyMessages} />
-                <RecentMessages messages={recentMessages} />
+                <HistoryMessages
+                    readMessage={readMessage}
+                    messages={historyMessages}
+                />
+                <RecentMessages
+                    readMessage={readMessage}
+                    messages={recentMessages}
+                />
             </MessagesList>
             <ChatInput
                 placeholder="Type something..."
